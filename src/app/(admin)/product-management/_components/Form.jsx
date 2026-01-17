@@ -1,8 +1,16 @@
 "use client";
+import { createProduct } from "@/api/products";
+import Button from "@/app/components/Button";
+import Image from "next/image";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProductForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [productImages, setProductImages] = useState([]);
+  const [localImageUrls, setLocalImageUrls] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -10,10 +18,44 @@ const ProductForm = () => {
     reset,
   } = useForm();
 
-  const dispatch = useDispatch();
+  function prepareData(data) {
+    const formData = new FormData();
 
-  function submitForm(data) {
-    console.log(data);
+    formData.append("name", data.name);
+    formData.append("brand", data.brand);
+    formData.append("price", data.price);
+    formData.append("category", data.category);
+    formData.append("stock", data.stock ?? 1);
+
+    if (data.description) formData.append("description", data.description);
+
+    if (productImages.length > 0) {
+      productImages.map((image) => {
+        formData.append("images", image);
+      });
+    }
+
+    return formData;
+  }
+
+  async function submitForm(data) {
+    setLoading(true);
+    const authToken = localStorage.getItem("authToken");
+
+    const inputData = prepareData(data);
+
+    try {
+      await createProduct(inputData, authToken);
+
+      reset();
+      toast.success("Product Created Successfully.", { autoClose: 1000 });
+    } catch (error) {
+      toast.error(error.response?.data, { autoClose: 1000 });
+    } finally {
+      setLoading(false);
+      setLocalImageUrls([]);
+      setProductImages([]);
+    }
   }
 
   return (
@@ -133,7 +175,6 @@ const ProductForm = () => {
                 className="w-8 h-8 mb-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -149,18 +190,49 @@ const ProductForm = () => {
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop
               </p>
-              <p className="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+              <p className="text-xs">SVG, PNG, JPG (MAX. 800x400px)</p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" />
+            <input
+              id="images"
+              type="file"
+              className="hidden"
+              multiple
+              accept=".svg,.png,.jpg"
+              onChange={(event) => {
+                const files = [];
+                const urls = [];
+
+                Array.from(event.target.files).map((file) => {
+                  files.push(file);
+                  urls.push(URL.createObjectURL(file));
+                });
+                setLocalImageUrls(urls);
+                setProductImages(files);
+              }}
+            />
           </label>
         </div>
+        {localImageUrls.length > 0 && (
+          <div className="flex items-center gap-3">
+            {localImageUrls.map((url, index) => (
+              <Image
+                key={index}
+                height={50}
+                width={50}
+                src={url}
+                alt=""
+                className="h-16 w-16 object-cover p-1 rounded-md bg-slate-300 dark:bg-slate-600"
+              />
+            ))}
+          </div>
+        )}
       </div>
-      <button
-        type="submit"
-        className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-secondary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary"
-      >
-        Add product
-      </button>
+
+      <Button
+        label="Add Product"
+        className="mt-4 px-12 text-center sm:mt-6 bg-primary hover:bg-secondary transition hover:text-white"
+        loading={loading}
+      />
     </form>
   );
 };
