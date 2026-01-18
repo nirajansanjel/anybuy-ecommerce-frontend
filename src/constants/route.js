@@ -5,3 +5,5 @@ export  const PRODUCTS_ROUTE = "/products"
 export  const CATEGORIES_ROUTE = "/categories"
 export  const TESTIMONIALS_ROUTE = "/testimonials"
 export  const LOGIN_ROUTE = "/login"
+export  const PRODUCT_MANAGEMENT_ROUTE = "/product-management"
+
