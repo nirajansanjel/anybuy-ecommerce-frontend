@@ -10,7 +10,7 @@ const Products = async () => {
   const products = response.data;
 
   return (
-    <div className="container mx-auto py-5 px-4">
+    <div className="container mx-auto py-6 ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
