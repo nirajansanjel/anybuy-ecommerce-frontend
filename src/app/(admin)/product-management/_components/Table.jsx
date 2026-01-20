@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { CiExport } from "react-icons/ci";
 import { MdEdit } from "react-icons/md";
@@ -7,7 +8,8 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Link from "next/link";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/route";
-
+import { deleteProduct } from "@/api/products";
+import PlaceHolder from "@/assets/products/placeholder.webp";
 
 const ProductsTable = ({ products }) => {
   return (
@@ -25,7 +27,7 @@ const ProductsTable = ({ products }) => {
         </div>
         <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
           <Link
-           href={`${PRODUCT_MANAGEMENT_ROUTE}/add`}
+            href={`${PRODUCT_MANAGEMENT_ROUTE}/add`}
             type="button"
             className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-secondary hover:bg-secondary/80  dark:bg-primary-90 focus:outline-none dark:focus:ring-primary"
           >
@@ -93,7 +95,7 @@ const ProductsTable = ({ products }) => {
                     height={20}
                     width={20}
                     alt={product.name}
-                    src={product.imageUrls[0]}
+                    src={product.imageUrls[0] ?? PlaceHolder}
                     className="w-8 h-8 mr-3 object-cover"
                   />
                   {product.name}
@@ -111,21 +113,35 @@ const ProductsTable = ({ products }) => {
                 </td>
 
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {product.price}
+                  Rs.{product.price}
                 </td>
 
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div className="flex items-center">
-                    <div className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full" />
-                    {product.stock}
+                    {product.stock > 10 ? (
+                      <div className="inline-block w-4 h-4 mr-2 bg-green-500 rounded-full" />
+                    ) : product.stock > 5 ? (
+                      <div className="inline-block w-4 h-4 mr-2 bg-orange-500 rounded-full" />
+                    ) : (
+                      <div className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full" />
+                    )}
+                    {product.stock ?? 1}
                   </div>
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {format(product.createdAt, "dd MMM, yyyy")}
+                  {format(product.createdAt, "dd MMM, yyyy")}
                 </td>
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <MdEdit />
-                </td>
+                <Link href={`${PRODUCT_MANAGEMENT_ROUTE}/edit/${product._id}`}>
+                  <td className="px-4 py-2 font-md text-lg hover:text-green-600 text-gray-900 whitespace-nowrap dark:text-white">
+                    <MdEdit />
+                  </td>
+                </Link>
+                <button
+                  onClick={() => deleteProduct(product._id)}
+                  className="text-red-600 hover:text-lg transition"
+                >
+                  <FaTrash />
+                </button>
               </tr>
             ))}
           </tbody>
