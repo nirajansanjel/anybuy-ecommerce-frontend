@@ -1,15 +1,19 @@
 import { deleteProduct } from "@/api/products";
 import Modal from "@/app/components/Modal";
+import { refreshList } from "@/redux/product/productSlice";
 import React, { useState } from "react";
 import { CgDanger } from "react-icons/cg";
 import { FaTrash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const DeleteButton = ({ id }) => {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch()
   function confirmDelete() {
     deleteProduct(id)
       .then(() => {
+        dispatch(refreshList(true))
         toast.success("Product deleted successfully!",{autoClose:1000});
       })
       .catch((error) => {

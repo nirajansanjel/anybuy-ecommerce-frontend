@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { CiExport } from "react-icons/ci";
 import { MdEdit } from "react-icons/md";
@@ -8,13 +8,29 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Link from "next/link";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/route";
-import { deleteProduct } from "@/api/products";
+import { getProducts } from "@/api/products";
 import PlaceHolder from "@/assets/products/placeholder.webp";
 import DeleteButton from "./DeleteButton";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshList } from "@/redux/product/productSlice";
+import Loader from "@/app/components/Loader";
 
-const ProductsTable = ({ products }) => {
+const ProductsTable = () => {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const { refresh } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getProducts()
+      .then((response) => setProducts(response?.data))
+      .finally(() => {
+        setLoading(false)
+        dispatch(refreshList(false));
+      });
+  }, [refresh, dispatch]);
   return (
     <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+      
       <div className="flex flex-col px-4 py-1 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
         <div className="flex items-center flex-1 space-x-4">
           <h5>
@@ -51,6 +67,9 @@ const ProductsTable = ({ products }) => {
           </button>
         </div>
       </div>
+      {loading && (<div className="flex justify-center items-center">
+        <Loader className="h-12  w-12 fill-secondary"/>
+      </div>)}
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 m-4">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -82,7 +101,8 @@ const ProductsTable = ({ products }) => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
+            
+            {!loading && products.map((product, index) => (
               <tr
                 key={index}
                 className="border-b border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -137,7 +157,7 @@ const ProductsTable = ({ products }) => {
                     <MdEdit />
                   </td>
                 </Link>
-               <DeleteButton id={product._id} />
+                <DeleteButton id={product._id} />
               </tr>
             ))}
           </tbody>

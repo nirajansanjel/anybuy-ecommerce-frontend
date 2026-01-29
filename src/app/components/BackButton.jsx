@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { GoArrowLeft } from "react-icons/go";
 
 const BackButton = () => {
-  const router = useRouter;
+  const router = useRouter();
   function onClickBack() {
     router.back();
   }
