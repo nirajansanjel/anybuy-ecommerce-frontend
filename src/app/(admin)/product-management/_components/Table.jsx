@@ -10,6 +10,7 @@ import Link from "next/link";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/route";
 import { deleteProduct } from "@/api/products";
 import PlaceHolder from "@/assets/products/placeholder.webp";
+import DeleteButton from "./DeleteButton";
 
 const ProductsTable = ({ products }) => {
   return (
@@ -136,12 +137,7 @@ const ProductsTable = ({ products }) => {
                     <MdEdit />
                   </td>
                 </Link>
-                <button
-                  onClick={() => deleteProduct(product._id)}
-                  className="text-red-600 hover:text-lg transition"
-                >
-                  <FaTrash />
-                </button>
+               <DeleteButton id={product._id} />
               </tr>
             ))}
           </tbody>
