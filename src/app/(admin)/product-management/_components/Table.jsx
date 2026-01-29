@@ -14,23 +14,73 @@ import DeleteButton from "./DeleteButton";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshList } from "@/redux/product/productSlice";
 import Loader from "@/app/components/Loader";
+import { IoSettingsOutline } from "react-icons/io5";
+import {
+  HiArrowSmallDown,
+  HiArrowSmallUp,
+  HiMiniArrowsUpDown,
+} from "react-icons/hi2";
 
+const columns = [
+  {
+    label: "S.N.",
+    key: "id",
+    sortable: false,
+  },
+  {
+    label: "Product",
+    key: "name",
+    sortable: true,
+  },
+  {
+    label: "Brand",
+    key: "brand",
+    sortable: true,
+  },
+  {
+    label: "Category",
+    key: "category",
+    sortable: true,
+  },
+  {
+    label: "Price",
+    key: "price",
+    sortable: true,
+  },
+  {
+    label: "Stock",
+    key: "stock",
+    sortable: true,
+  },
+  {
+    label: "Created At",
+    key: "createdAt",
+    sortable: true,
+  },
+];
 const ProductsTable = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const [sortBy, setSortBy] = useState("createdAt");
+  const [sortOrder, setSortOrder] = useState(-1);
+
   const { refresh } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   useEffect(() => {
-    getProducts()
+    setLoading(true);
+    let query = "";
+    if (sortBy) {
+      query = query + "sort=" + JSON.stringify({ [sortBy]: sortOrder });
+    }
+    getProducts(query)
       .then((response) => setProducts(response?.data))
       .finally(() => {
-        setLoading(false)
+        setLoading(false);
         dispatch(refreshList(false));
       });
-  }, [refresh, dispatch]);
+  }, [refresh, dispatch, sortBy, sortOrder]);
   return (
     <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
-      
       <div className="flex flex-col px-4 py-1 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
         <div className="flex items-center flex-1 space-x-4">
           <h5>
@@ -67,99 +117,116 @@ const ProductsTable = () => {
           </button>
         </div>
       </div>
-      {loading && (<div className="flex justify-center items-center">
-        <Loader className="h-12  w-12 fill-secondary"/>
-      </div>)}
+      {loading && (
+        <div className="flex justify-center items-center">
+          <Loader className="h-12  w-12 fill-secondary" />
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 m-4">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-4 py-3">
-                S.N
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Product
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Brand
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Price
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Stock
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Created At
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Action
+              {columns.map((column, index) => (
+                <th
+                  scope="col"
+                  key={index}
+                  className="px-4 py-3"
+                  onClick={() => {
+                    if (!column.sortable) return;
+                    setSortBy(column.key);
+                    setSortOrder(sortOrder == 1 ? -1 : 1);
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    {column.label}
+                    {column.sortable ? (
+                      column.key == sortBy ? (
+                        sortOrder == 1 ? (
+                          <HiArrowSmallUp />
+                        ) : (
+                          <HiArrowSmallDown />
+                        )
+                      ) : (
+                        <HiMiniArrowsUpDown />
+                      )
+                    ) : null}
+                  </div>
+                </th>
+              ))}
+
+              <th scope="col" className="px-4 py-2 flex justify-center text-lg">
+                <IoSettingsOutline />
               </th>
             </tr>
           </thead>
           <tbody>
-            
-            {!loading && products.map((product, index) => (
-              <tr
-                key={index}
-                className="border-b border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
-              >
-                <th className="px-4 py-2">{index + 1}</th>
-                <th
-                  scope="row"
-                  className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            {!loading &&
+              products.map((product, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
-                  <Image
-                    height={20}
-                    width={20}
-                    alt={product.name}
-                    src={product.imageUrls[0] ?? PlaceHolder}
-                    className="w-8 h-8 mr-3 object-cover"
-                  />
-                  {product.name}
-                </th>
-                <td className="px-4 py-2">
-                  <span className="bg-primary/20 text-green-400 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary dark:text-white">
-                    {product.brand}
-                  </span>
-                </td>
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex items-center">
-                    <div className="inline-block w-4 h-4 mr-2" />
-                    {product.category}
-                  </div>
-                </td>
-
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Rs.{product.price}
-                </td>
-
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex items-center">
-                    {product.stock > 10 ? (
-                      <div className="inline-block w-4 h-4 mr-2 bg-green-500 rounded-full" />
-                    ) : product.stock > 5 ? (
-                      <div className="inline-block w-4 h-4 mr-2 bg-orange-500 rounded-full" />
-                    ) : (
-                      <div className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full" />
-                    )}
-                    {product.stock ?? 1}
-                  </div>
-                </td>
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {format(product.createdAt, "dd MMM, yyyy")}
-                </td>
-                <Link href={`${PRODUCT_MANAGEMENT_ROUTE}/edit/${product._id}`}>
-                  <td className="px-4 py-2 font-md text-lg hover:text-green-600 text-gray-900 whitespace-nowrap dark:text-white">
-                    <MdEdit />
+                  <th className="px-4 py-2">{index + 1}</th>
+                  <th
+                    scope="row"
+                    className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <Image
+                      height={20}
+                      width={20}
+                      alt={product.name}
+                      src={product.imageUrls[0] ?? PlaceHolder}
+                      className="w-8 h-8 mr-3 object-cover"
+                    />
+                    {product.name}
+                  </th>
+                  <td className="px-4 py-2">
+                    <span className="bg-primary/20 text-green-400 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary dark:text-white">
+                      {product.brand}
+                    </span>
                   </td>
-                </Link>
-                <DeleteButton id={product._id} />
-              </tr>
-            ))}
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div className="flex items-center">
+                      <div className="inline-block w-4 h-4 mr-2" />
+                      {product.category}
+                    </div>
+                  </td>
+
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Rs.{product.price}
+                  </td>
+
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div className="flex items-center">
+                      {product.stock > 10 ? (
+                        <div className="inline-block w-4 h-4 mr-2 bg-green-500 rounded-full" />
+                      ) : product.stock > 5 ? (
+                        <div className="inline-block w-4 h-4 mr-2 bg-orange-500 rounded-full" />
+                      ) : (
+                        <div className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full" />
+                      )}
+                      {product.stock ?? 1}
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {format(product.createdAt, "dd MMM, yyyy")}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div className="flex">
+                      <Link
+                    href={`${PRODUCT_MANAGEMENT_ROUTE}/edit/${product._id}`}
+                  >
+                    <span className="px-6 text-lg hover:text-green-600 ">
+                      <MdEdit />
+                    </span>
+
+                  </Link>
+                  <DeleteButton id={product._id} />
+                    </div>
+                  </td>
+                 
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

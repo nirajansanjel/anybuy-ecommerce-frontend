@@ -27,7 +27,7 @@ const DeleteButton = ({ id }) => {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="text-red-600 hover:text-lg transition"
+        className="text-red-600 hover:text-red-700 transition"
       >
         <FaTrash />
       </button>
