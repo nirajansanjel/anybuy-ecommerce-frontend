@@ -68,9 +68,9 @@ const ProductsTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    let query = "";
+    const  query = {};
     if (sortBy) {
-      query = query + "sort=" + JSON.stringify({ [sortBy]: sortOrder });
+     query.sort =  JSON.stringify({ [sortBy]: sortOrder });
     }
     getProducts(query)
       .then((response) => setProducts(response?.data))
@@ -130,7 +130,7 @@ const ProductsTable = () => {
                 <th
                   scope="col"
                   key={index}
-                  className="px-4 py-3"
+                  className="px-4 py-3 cursor-pointer"
                   onClick={() => {
                     if (!column.sortable) return;
                     setSortBy(column.key);
