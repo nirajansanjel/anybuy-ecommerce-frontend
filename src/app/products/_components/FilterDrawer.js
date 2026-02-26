@@ -1,7 +1,7 @@
 "use client";
 
 import { PRODUCTS_ROUTE } from "@/constants/route";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const DEFAULT_LIMIT = 10;
@@ -19,9 +19,11 @@ const FilterDrawer = ({ showFilter, setShowFilter, brands, categories }) => {
   const [brandsFilter, setBrandsFilter] = useState(DEFAULT_BRANDS_FILTER);
   const [categoryFilter, setCategoryFilter] = useState(DEFAULT_CATEGORY_FILTER);
   const router = useRouter();
+    const searchParams = useSearchParams()
+  
 
   function setFilter() {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams.toString);
     params.set("limit", limit);
     params.set("sort", sort);
     params.set("min", minPrice);
@@ -56,7 +58,7 @@ const FilterDrawer = ({ showFilter, setShowFilter, brands, categories }) => {
   return (
     <div className={showFilter ? "block absolute" : "hidden"}>
       <div
-        className=" w-full bg-black dark:bg-white fixed top-0 left-0 z-10 opacity-20 dark:opacity-10"
+        className="fixed w-full h-screen bg-black dark:bg-white  top-0 left-0 z-10 opacity-20 dark:opacity-10"
         onClick={() => setShowFilter(false)}
       ></div>
       <div className="overflow-y-auto fixed top-14 left-0 z-20 h-screen bg-white px-4 pt-8 pb-14 min-w-64 shadow-md dark:bg-slate-800">

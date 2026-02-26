@@ -1,7 +1,7 @@
 import { getBrands, getCategories, getProducts } from "@/api/products";
 import ProductCard from "./_components/Card";
 import FilterButton from "./_components/FilterButton";
-import { CiSearch } from "react-icons/ci";
+import SearchBar from "./_components/SearchBar";
 
 export const metadata = {
   title: "Products",
@@ -29,19 +29,7 @@ const Products = async ({ searchParams }) => {
           >
             Search
           </label>
-          <div className="relative">
-            <div className=" absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <CiSearch />
-            </div>
-            <input
-              type="search"
-              id="search"
-              className="block w-full p-3 ps-9 rounded-lg border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-              placeholder="Search"
-              
-            />
-           
-          </div>
+         <SearchBar/>
 
           <div>
             <FilterButton brands={brands} categories={categories} />
@@ -49,6 +37,7 @@ const Products = async ({ searchParams }) => {
         </div>
       </div>
       <div>
+        {products?.length==0 && (<div className="mx-auto w-full py-10 my-5 rounded-xl bg-secondary/10 text-secondary text-2xl text-center">Products Not Available!</div>)}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {products.map((product, index) => (
             <ProductCard key={index} product={product} />
