@@ -22,7 +22,7 @@ const Modal = ({
       >
         <div className="bg-black fixed top-0 left-0 right-0 bottom-0 opacity-20"></div>
         <div className="relative p-4 w-full max-w-md max-h-full">
-          <div className="relative bg-white  rounded-2xl shadow-sm p-4 md:p-6">
+          <div className="relative bg-white dark:text-black rounded-2xl shadow-sm p-4 md:p-6">
             <button
               className="absolute top-3 end-2.5 text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
               onClick={closeModal}
@@ -35,7 +35,11 @@ const Modal = ({
               {icon}
 
               <h3 className="mb-6 text-body">{label}</h3>
+              <div className="py-2">
+                {info}
+              </div>
               <div className="flex items-center space-x-4 justify-center">
+                
                {confirmAction}
                 <button
                   onClick={closeModal}

@@ -2,6 +2,7 @@ import { FaCartPlus, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import ImagePlaceHolder from "@/assets/products/placeholder.webp";
 import Link from "next/link";
+import AddToCart from "./AddToCart";
 
 const ProductCard = ({ product }) => {
   return (
@@ -36,7 +37,7 @@ const ProductCard = ({ product }) => {
           <span className="line-through pl-2 ">{product.price * 1.2}</span>
         </div>
         <div className="mr-4 flex justify-end  hover:text-red-500 text-xl py-2 ">
-          <FaCartPlus />
+          <AddToCart product={product}/>
         </div>
       </div>
     </div>

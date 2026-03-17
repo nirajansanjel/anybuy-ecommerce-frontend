@@ -3,9 +3,9 @@ import navLinks from "@/constants/navlinks";
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaCartPlus } from "react-icons/fa";
 import AuthMenu from "./AuthMenu";
 import ToggleTheme from "./ToggleTheme";
+import CartButton from "./CartButton";
 
 
 const NavMenu = () => {
@@ -28,9 +28,7 @@ const NavMenu = () => {
       })}
       <ToggleTheme/>
 
-      <div className="hidden lg:flex  hover:text-red-500 text-xl  w-16 justify-end">
-        <FaCartPlus />
-      </div>
+      <CartButton/>
       <AuthMenu/>
     </nav>
   );
