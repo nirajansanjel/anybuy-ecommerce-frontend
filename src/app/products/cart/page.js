@@ -14,7 +14,7 @@ import Checkout from "../_components/Checkout";
 
 const ProductsCart = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.cart);
+  const { products, totalPrice } = useSelector((state) => state.cart);
   return (
     <section className="py-10 m-4">
       <h2 className="text-3xl font-medium text-gray-800 dark:text-gray-200 mb-5 ml-2">
@@ -74,7 +74,9 @@ const ProductsCart = () => {
                   </th>
                   <td className="px-6 py-4">{product.brand}</td>
                   <td className="px-6 py-4">{product.category}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Rs. {product.price}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    Rs. {product.price}
+                  </td>
                   <div className="flex items-center gap-2 px-6 py-6">
                     <button
                       onClick={() => dispatch(decreaseQuantity(product))}
@@ -100,12 +102,12 @@ const ProductsCart = () => {
         </table>
         <div className="flex items-center justify-end py-4 gap-4 px-2">
           <button
-            onClick={()=>dispatch(clearCart())}
+            onClick={() => dispatch(clearCart())}
             className="px-4 py-1 text-sm rounded-md bg-red-500 border border-red-600 text-white hover:bg-red-700"
           >
             Clear Cart
           </button>
-<Checkout />
+          <Checkout products={products} totalPrice={totalPrice} />
         </div>
       </div>
     </section>

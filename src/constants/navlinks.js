@@ -2,6 +2,7 @@ import {
   ABOUT_ROUTE,
   CATEGORIES_ROUTE,
   HOME_ROUTE,
+  ORDERS_ROUTE,
   POPULAR_ROUTE,
   PRODUCTS_ROUTE,
   TESTIMONIALS_ROUTE,
@@ -19,6 +20,10 @@ const navLinks = [
   {
     route: PRODUCTS_ROUTE,
     label: "Products",
+  },
+  {
+    route: ORDERS_ROUTE,
+    label: "Orders",
   },
   {
     route: POPULAR_ROUTE,

@@ -24,7 +24,7 @@ const Modal = ({
         <div className="relative p-4 w-full max-w-md max-h-full">
           <div className="relative bg-white dark:text-black rounded-2xl shadow-sm p-4 md:p-6">
             <button
-              className="absolute top-3 end-2.5 text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+              className="absolute top-3 end-2.5 text-body bg-transparent hover:bg-slate-50 rounded-lg rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
               onClick={closeModal}
             >
               <RxCross2 className="w-5 h-5" />
