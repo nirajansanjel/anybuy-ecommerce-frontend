@@ -11,5 +11,25 @@ async function getOrdersByUser(status) {
 async function orderDelete(id) {
   return await api.delete(`/api/orders/${id}`);
 }
+async function updateStatus(id, data) {
+  return await api.put(`/api/orders/${id}`, data);
+}
+async function payViaKhalti(orderId) {
+  return await api.post(`/api/orders/${orderId}/payment/khalti`);
+}
+async function payViaStripe(orderId) {
+  return await api.post(`/api/orders/${orderId}/payment/stripe`);
+}
+async function confirmPayment(orderId, data) {
+  return await api.put(`/api/orders/${orderId}/confirm-payment`, data);
+}
 
-export { createOrder, getOrdersByUser, orderDelete };
+export {
+  createOrder,
+  getOrdersByUser,
+  orderDelete,
+  updateStatus,
+  payViaKhalti,
+  confirmPayment,
+  payViaStripe
+};

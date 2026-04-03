@@ -9,8 +9,8 @@ import {
   ORDER_STATUS_PENDING,
   ORDER_STATUS_SHIPPED,
 } from "@/constants/orderStatus";
-import { FaLastfmSquare } from "react-icons/fa";
-import { set } from "date-fns";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ORDERS_ROUTE } from "@/constants/route";
 
 const orderStatuses = [
   ORDER_STATUS_PENDING,
@@ -20,14 +20,18 @@ const orderStatuses = [
 ];
 
 const OrdersPage = () => {
+  const searchParams = useSearchParams();
+  const statusParam = searchParams?.get("status") || ORDER_STATUS_PENDING;
+
+  const router = useRouter()
+
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
-  const [status, setStatus] = useState(ORDER_STATUS_PENDING);
   const [isUpdated, setIsUpdated] = useState(true);
 
   function fetchOrders() {
     setLoading(true);
-    getOrdersByUser(status)
+    getOrdersByUser(statusParam)
       .then((response) => setOrders(response.data))
       .finally(() => {
         setLoading(false);
@@ -36,7 +40,7 @@ const OrdersPage = () => {
   }
   useEffect(() => {
     fetchOrders();
-  }, [status]);
+  }, [statusParam]);
 
   useEffect(() => {
     if (!isUpdated) return;
@@ -56,11 +60,11 @@ const OrdersPage = () => {
             <button
               key={orderStatus}
               className={
-                orderStatus == status
+                orderStatus == statusParam?.toUpperCase()
                   ? "bg-orange-500 px-4 md:px-12 rounded text-white text-sm md:text-md hover:bg-orange-400"
                   : "px-4 py-1 md:px-12  md:text-md m-1 rounded text-xs md:text-md hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-600"
               }
-              onClick={() => setStatus(orderStatus)}
+              onClick={() => router.push(`${ORDERS_ROUTE}?status=${orderStatus}`)}
             >
               {orderStatus}
             </button>

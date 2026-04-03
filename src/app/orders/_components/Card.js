@@ -8,6 +8,9 @@ import Image from "next/image";
 import React from "react";
 import { FaImage } from "react-icons/fa";
 import DeleteAction from "./DeleteAction";
+import CashOnDelivery from "./CashOnDelivery";
+import PayViaKhalti from "./PayViaKhalti";
+import PayViaStripe from "./PayViaStripe";
 
 const OrderStatusBadge = ({ status }) => {
   switch (status) {
@@ -39,7 +42,7 @@ const OrderStatusBadge = ({ status }) => {
   }
 };
 
-const OrderCard = ({ order,setIsUpdated }) => (
+const OrderCard = ({ order, setIsUpdated }) => (
   <div className="border  border-gray-400 rounded-lg">
     <div className="py-4 px-6 bg-white rounded-t-lg dark:bg-gray-700  flex flex-col justify-between leading-normal">
       <div className="mb-2">
@@ -83,16 +86,16 @@ const OrderCard = ({ order,setIsUpdated }) => (
       </div>
     </div>
     <div className="bg-gray-50 rounded-b-lg dark:bg-zinc-400 ">
-      <div className="flex justify-between items-center text-sm py-2 px-6">
+      <div className="flex flex-col md:flex-row justify-between items-center text-sm py-2 px-6">
         <p className="text-gray-900 dark:text-zinc-100 font-semibold leading-none p-2 rounded-md">
-          Total Price:{order.totalPrice}
+          Total Price: {order.totalPrice}
         </p>
         {order.status == ORDER_STATUS_PENDING && (
           <div className="flex gap-2">
-            <DeleteAction order={order} setIsUpdated={setIsUpdated}/>
-            <button className="bg-secondary rounded-md shadow text-zinc-700 px-4 py-1 ">
-              Payment
-            </button>
+            <CashOnDelivery orderId={order._id} />
+            <PayViaKhalti orderId={order._id} />
+            <PayViaStripe order={order} />
+            <DeleteAction order={order} setIsUpdated={setIsUpdated} />
           </div>
         )}
       </div>
