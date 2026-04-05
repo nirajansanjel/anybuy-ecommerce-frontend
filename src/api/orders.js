@@ -7,6 +7,9 @@ async function createOrder(data) {
 async function getOrdersByUser(status) {
   return await api.get(`/api/orders/user?status=${status}`);
 }
+async function getAllOrders() {
+  return await api.get(`/api/orders`);
+}
 
 async function orderDelete(id) {
   return await api.delete(`/api/orders/${id}`);
@@ -27,9 +30,10 @@ async function confirmPayment(orderId, data) {
 export {
   createOrder,
   getOrdersByUser,
+  getAllOrders,
   orderDelete,
   updateStatus,
   payViaKhalti,
   confirmPayment,
-  payViaStripe
+  payViaStripe,
 };
