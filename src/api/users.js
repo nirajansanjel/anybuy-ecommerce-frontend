@@ -1,16 +1,12 @@
 "use client";
 import config from "@/config";
 import axios from "axios";
-
-const authToken = localStorage.getItem("authToken");
-console.log(authToken)
-
+import api from "./api";
 
 async function getAllUsers() {
-  return await axios.get(`${config.apiUrl}/api/users`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
+  return await api.get(`${config.apiUrl}/api/users`);
 }
-export { getAllUsers };
+async function updateUserRoles(id,data) {
+  return await api.put(`${config.apiUrl}/api/user/${id}/roles`,data);
+}
+export { getAllUsers ,updateUserRoles};
