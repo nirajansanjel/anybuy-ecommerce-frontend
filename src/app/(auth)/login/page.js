@@ -4,7 +4,7 @@ import { EMAIL_REGEX } from "@/constants/regex";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 
-import { HOME_ROUTE } from "@/constants/route";
+import { FORGOT_PASSWORD_ROUTE, HOME_ROUTE } from "@/constants/route";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -109,7 +109,7 @@ const Login = () => {
             </div>
           </div>
           <a
-            href="#"
+            href={FORGOT_PASSWORD_ROUTE}
             className="text-sm font-medium text-primary hover:underline dark:text-primary"
           >
             Forgot password?

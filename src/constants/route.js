@@ -12,5 +12,9 @@ export  const USER_MANAGEMENT_ROUTE = "/user-management"
 export  const DASHBOARD_ROUTE = "/dashboard"
 export  const PROFILE_ROUTE = "/profile"
 export  const PRODUCTS_ORDERS_ROUTE = "/orders"
+export  const FORGOT_PASSWORD_ROUTE = "/forgot-password"
+export  const RESET_PASSWORD_ROUTE = "/reset-password"
+
+
 
 

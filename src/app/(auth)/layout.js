@@ -9,7 +9,6 @@ function AuthLayout({ children }) {
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
   useEffect(() => {
-    if (!user) return router.push(LOGIN_ROUTE);
     if (user) return router.push(HOME_ROUTE);
   }, [user, router]);
 
