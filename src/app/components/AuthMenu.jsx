@@ -1,30 +1,37 @@
 "use client";
 import { LOGIN_ROUTE } from "@/constants/route";
 import { logoutUser } from "@/redux/auth/authSlice";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaUser } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
+import UserPopup from "./UserPopup";
 
 // const router = useRouter()
 const AuthMenu = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const router = useRouter();
 
-  function logout() {
-    dispatch(logoutUser());
-    router.push(LOGIN_ROUTE);
-  }
+  const [showPopup,setShowPopup] = useState(false)
 
   if (user)
     return (
-      <div className="flex justify-start items-center">
-        <button
-          onClick={logout}
-          className="text-xs  bg-blue-600 p-2 rounded-2xl text-white mr-4 hover:bg-red-500  transition"
-        >
-          LOGOUT
-        </button>
+      <div className="flex justify-start items-center m-2 relative ">
+       <button onClick={()=>setShowPopup(true)}>
+         {user.profileImage ? (
+          <Image
+            src={user.profileImage}
+            alt={""}
+            height={64}
+            width={64}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+        ) : (
+          <FaUser className="h-8 w-8 rounded-full p-1 bg-gray-200 text-gray-700" />
+        )}
+       </button>
+       {showPopup && <UserPopup user={user} setShowPopup={setShowPopup}/>}
       </div>
     );
 

@@ -1,4 +1,4 @@
-import { DASHBOARD_ROUTE, ORDER_MANAGEMENT_ROUTE, PRODUCT_MANAGEMENT_ROUTE, USER_MANAGEMENT_ROUTE } from "@/constants/route";
+import { DASHBOARD_ROUTE, ORDER_MANAGEMENT_ROUTE, PRODUCT_MANAGEMENT_ROUTE, PROFILE_ROUTE, USER_MANAGEMENT_ROUTE } from "@/constants/route";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,6 +18,10 @@ const adminMenu = [
     {
         route:USER_MANAGEMENT_ROUTE,
         label:"User Management"
+    },
+     {
+        route:PROFILE_ROUTE,
+        label:"Profile"
     },
 ]
 

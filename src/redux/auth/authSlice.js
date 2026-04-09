@@ -1,4 +1,5 @@
-import { loginUser, registerUser } from "./authActions";
+import { updateUser } from "@/api/users";
+import { loginUser, registerUser, updateUserProfile } from "./authActions";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -7,12 +8,19 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     loading: false,
+    success: false,
     error: null,
   },
   reducers: {
     logoutUser: (state) => {
       state.user = null;
-      localStorage.removeItem("authToken")
+      localStorage.removeItem("authToken");
+    },
+    resetSuccess: (state) => {
+      state.success = false;
+    },
+    updateUserImage: (state, action) => {
+      state.user = { ...state.user, profileImage: action.payload };
     },
   },
   extraReducers: (builder) => {
@@ -40,9 +48,23 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.user = action.payload;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const {logoutUser} = authSlice.actions
+export const { logoutUser, resetSuccess, updateUserImage } = authSlice.actions;
 export default authSlice.reducer;

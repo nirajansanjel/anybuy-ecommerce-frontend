@@ -7,6 +7,7 @@ import Action from "./Action";
 import { getAllUsers } from "@/api/users";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const columns = [
   {
@@ -42,6 +43,9 @@ const UsersTable = () => {
     setLoading(true);
     getAllUsers()
       .then((response) => setUsers(response?.data))
+      .catch((error) => {
+        toast.error(error.response?.data);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -117,16 +121,21 @@ const UsersTable = () => {
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {user.phone}
                   </td>
-                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {user.roles.map((role,index)=>(
-                    <span key={index} className="bg-primary/10 text-primary border border-primary/50 mx-0.5 p-1 rounded-md text-xs">{role}</span>
-                   ))}
+                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {user.roles.map((role, index) => (
+                      <span
+                        key={index}
+                        className="bg-primary/10 text-primary border border-primary/50 mx-0.5 p-1 rounded-md text-xs"
+                      >
+                        {role}
+                      </span>
+                    ))}
                   </td>
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {format(user.createdAt, "dd MMM, yyyy")}
                   </td>
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <Action id={user._id} userRoles={user.roles}/>
+                    <Action id={user._id} userRoles={user.roles} />
                   </td>
                 </tr>
               ))}

@@ -9,4 +9,11 @@ async function getAllUsers() {
 async function updateUserRoles(id,data) {
   return await api.put(`${config.apiUrl}/api/user/${id}/roles`,data);
 }
-export { getAllUsers ,updateUserRoles};
+async function updateUser(id,data) {
+  return await api.put(`${config.apiUrl}/api/user/${id}`,data);
+}
+async function updateProfileImage(id,data) {
+  return await api.patch(`${config.apiUrl}/api/user/${id}/profile-image`,data);
+}
+
+export { getAllUsers ,updateUserRoles,updateUser,updateProfileImage};

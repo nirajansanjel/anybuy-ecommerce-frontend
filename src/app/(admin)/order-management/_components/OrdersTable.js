@@ -11,6 +11,7 @@ import {
   ORDER_STATUS_SHIPPED,
 } from "@/constants/orderStatus";
 import Action from "./Action";
+import { toast } from "react-toastify";
 
 const columns = [
   {
@@ -57,6 +58,9 @@ const OrdersTable = () => {
     setLoading(true);
     getAllOrders()
       .then((response) => setOrders(response?.data))
+      .catch((error) => {
+        toast.error(error.response?.data);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -73,7 +77,9 @@ const OrdersTable = () => {
           <h5>
             <span className="text-gray-500">Total sales: </span>
             <span className="dark:text-white">Rs.</span>
-            <span className="dark:text-white">{orders.reduce((acc,item)=>acc+item.totalPrice,0)/1000 }k</span>
+            <span className="dark:text-white">
+              {orders.reduce((acc, item) => acc + item.totalPrice, 0) / 1000}k
+            </span>
           </h5>
         </div>
       </div>
@@ -170,7 +176,7 @@ const OrdersTable = () => {
                     {format(order.createdAt, "dd MMM, yyyy")}
                   </td>
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <Action id={order._id} orderStatus={order.status}/>
+                    <Action id={order._id} orderStatus={order.status} />
                   </td>
                 </tr>
               ))}

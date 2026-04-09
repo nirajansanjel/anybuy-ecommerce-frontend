@@ -1,3 +1,5 @@
+import { updateUser } from "@/api/users";
+
 const { login, signUp } = require("@/api/auth");
 const { createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -20,6 +22,19 @@ export const registerUser = createAsyncThunk(
     try {
       const response = await signUp(data);
       localStorage.setItem("authToken",response.data?.authToken)
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const updateUserProfile = createAsyncThunk(
+  "auth/update/user",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await updateUser(data.id,data);
+    
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data);
