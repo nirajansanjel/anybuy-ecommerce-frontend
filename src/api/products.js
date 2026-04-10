@@ -7,6 +7,9 @@ async function getProducts(searchParams) {
   const query = formatParams(searchParams);
 return await axios.get(`${config.apiUrl}/api/products?${query}`);
 }
+async function getProductsCount() {
+return await axios.get(`${config.apiUrl}/api/products/count`);
+}
 async function getProductById(id) {
   return await axios.get(`${config.apiUrl}/api/products/${id}`);
 }
@@ -35,4 +38,5 @@ export {
   deleteProduct,
   getBrands,
   getCategories,
+  getProductsCount
 };
