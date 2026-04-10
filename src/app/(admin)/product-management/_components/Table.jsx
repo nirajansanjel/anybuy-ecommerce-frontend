@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/route";
 import { getProducts } from "@/api/products";
-import PlaceHolder from "@/assets/products/placeholder.webp";
+import PlaceHolder from "@/assets/products/placeholder.png";
 import DeleteButton from "./DeleteButton";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshList } from "@/redux/product/productSlice";
@@ -20,6 +20,7 @@ import {
   HiArrowSmallUp,
   HiMiniArrowsUpDown,
 } from "react-icons/hi2";
+import Pagination from "./Pagination";
 
 const columns = [
   {
@@ -63,22 +64,26 @@ const ProductsTable = () => {
   const [products, setProducts] = useState([]);
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setSortOrder] = useState(-1);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const { refresh } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  const PAGE_LIMIT = 10;
   useEffect(() => {
     setLoading(true);
-    const  query = {};
+    const query = {};
     if (sortBy) {
-     query.sort =  JSON.stringify({ [sortBy]: sortOrder });
+      query.sort = JSON.stringify({ [sortBy]: sortOrder });
     }
+    query.limit = PAGE_LIMIT;
+    query.offset = PAGE_LIMIT * (pageNumber - 1);
     getProducts(query)
       .then((response) => setProducts(response?.data))
       .finally(() => {
         setLoading(false);
         dispatch(refreshList(false));
       });
-  }, [refresh, dispatch, sortBy, sortOrder]);
+  }, [refresh, dispatch, sortBy, sortOrder, pageNumber]);
   return (
     <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
       <div className="flex flex-col px-4 py-1 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
@@ -214,122 +219,21 @@ const ProductsTable = () => {
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <div className="flex">
                       <Link
-                    href={`${PRODUCT_MANAGEMENT_ROUTE}/edit/${product._id}`}
-                  >
-                    <span className="px-6 text-lg hover:text-green-600 ">
-                      <MdEdit />
-                    </span>
-
-                  </Link>
-                  <DeleteButton id={product._id} />
+                        href={`${PRODUCT_MANAGEMENT_ROUTE}/edit/${product._id}`}
+                      >
+                        <span className="px-6 text-lg hover:text-green-600 ">
+                          <MdEdit />
+                        </span>
+                      </Link>
+                      <DeleteButton id={product._id} />
                     </div>
                   </td>
-                 
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
-      <nav
-        className="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
-        aria-label="Table navigation"
-      >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-          Showing
-          <span className="font-semibold text-gray-900 dark:text-white">
-            1-10
-          </span>
-          of
-          <span className="font-semibold text-gray-900 dark:text-white">
-            1000
-          </span>
-        </span>
-        <ul className="inline-flex items-stretch -space-x-px">
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-90 bg-primary/5 border-primary/50 hover:bg-primary/20 hover:text-primary dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              ...
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              100
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
     </div>
   );
 };
