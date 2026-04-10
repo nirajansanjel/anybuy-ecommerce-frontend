@@ -2,10 +2,10 @@ import config from "@/config";
 import axios from "axios";
 import api from "./api";
 import formatParams from "@/helpers/formatParams";
+
 async function getProducts(searchParams) {
   const query = formatParams(searchParams);
-
-  return await axios.get(`${config.apiUrl}/api/products?${query}`);
+return await axios.get(`${config.apiUrl}/api/products?${query}`);
 }
 async function getProductById(id) {
   return await axios.get(`${config.apiUrl}/api/products/${id}`);

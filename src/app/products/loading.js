@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import ImagePlaceHolder from "@/assets/products/placeholder.webp";
+import ImagePlaceHolder from "@/assets/products/placeholder.png";
 
  const LoadingCard = () => {
   return (

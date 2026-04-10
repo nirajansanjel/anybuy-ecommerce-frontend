@@ -1,6 +1,6 @@
 import { FaCartPlus, FaStar } from "react-icons/fa";
 import Image from "next/image";
-import ImagePlaceHolder from "@/assets/products/placeholder.webp";
+import ImagePlaceHolder from "@/assets/products/placeholder.png";
 import Link from "next/link";
 import AddToCart from "./AddToCart";
 

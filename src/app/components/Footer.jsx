@@ -7,7 +7,7 @@ import { BsBank2 } from "react-icons/bs";
 
 import Image from "next/image";
 import esewa from "@/assets/paymentModes/esewa.png";
-import khalti from "@/assets/paymentModes/khalti.webp";
+import khalti from "@/assets/paymentModes/khalti-logo.png";
 
 const Footer = () => {
   return (
