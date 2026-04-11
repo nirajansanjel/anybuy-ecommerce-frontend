@@ -24,8 +24,8 @@ const Products = async ({ searchParams }) => {
         </div>
         <div className="flex gap-4">
           <label
-            for="search"
-            class="block mb-2.5 text-sm font-medium text-heading sr-only "
+            htmlFor="search"
+            className="block mb-2.5 text-sm font-medium text-heading sr-only "
           >
             Search
           </label>

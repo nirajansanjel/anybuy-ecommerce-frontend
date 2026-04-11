@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CiSettings } from "react-icons/ci";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import Image from "next/image";
-import ImagePlaceHolder from "@/assets/products/placeholder.webp";
+import ImagePlaceHolder from "@/assets/products/placeholder.png";
 import RemoveFromCart from "../_components/RemoveFromCart";
 import {
   clearCart,
@@ -16,7 +16,7 @@ const ProductsCart = () => {
   const dispatch = useDispatch();
   const { products, totalPrice } = useSelector((state) => state.cart);
   return (
-    <section className="py-10 m-4">
+    <section className="container mx-auto py-10">
       <h2 className="text-3xl font-medium text-gray-800 dark:text-gray-200 mb-5 ml-2">
         Your cart items
       </h2>
