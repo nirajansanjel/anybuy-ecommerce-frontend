@@ -1,5 +1,5 @@
 import { payViaKhalti } from "@/api/orders";
-import khaltiLogo from "@/assets/PaymentModes/khalti-logo.png";
+import khaltiLogo from "@/assets/PaymentModes/khaltilogo.png";
 import Image from "next/image";
 import { toast } from "react-toastify";
 
