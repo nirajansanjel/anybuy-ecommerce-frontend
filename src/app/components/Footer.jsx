@@ -6,8 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { BsBank2 } from "react-icons/bs";
 
 import Image from "next/image";
-import esewa from "@/assets/paymentModes/esewa.png";
-import khalti from "@/assets/PaymentModes/khaltilogo.png";
+import khaltiLogo from "@/assets/PaymentModes/khaltilogo.png";
 
 const Footer = () => {
   return (
@@ -43,21 +42,12 @@ const Footer = () => {
           <div className="paymentMethods  flex flex-col  items-center ">
             <h2 className="text-3xl font-semibold pb-4">We Accept</h2>
             <div className="flex flex-row  mb-4">
-              <div className="esewa mb-4  mr-4">
-                <Image
-                  src={esewa}
-                  className="h-10 w-auto  rounded-2xl bg-white "
-                  height={50}
-                  width={100}
-                  alt="esewa"
-                />
-              </div>
               <div className="khalti mb-4 mr-4">
-                <Image src={khalti} className="h-10 w-auto  bg-white rounded-2xl " height={50}
+                <Image src={khaltiLogo} className="h-10 w-auto  bg-white rounded-2xl " height={50}
                   width={100}
                   alt="khalti" />
               </div>
-              <div className="bankTransfer flex text-3xl w-auto   rounded-2xl">
+              <div className="bankTransfer flex text-3xl w-auto p-1  rounded-2xl">
                 <BsBank2 />
 
               </div>
