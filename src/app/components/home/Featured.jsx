@@ -7,7 +7,7 @@ import { PRODUCTS_ROUTE } from "@/constants/route";
 
 const Card = ({ product }) => {
   return (
-    <div className="rounded-lg shadow-md bg-white  relative m-4">
+    <div className="rounded-lg shadow-md bg-white dark:bg-slate-800 dark:text-white relative m-4">
       {product.imageUrls.length > 0 ? (
         <Image
           src={product.imageUrls[0]}
@@ -29,7 +29,7 @@ const Card = ({ product }) => {
         <FaStar />
         <FaStar />
         <FaStar />
-        <p className="text-black pt-2">(300)</p>
+        <p className="text-black dark:text-slate-400 pt-2">(300)</p>
       </div>
       <div className="flex justify-between">
         <div className="p-1">
@@ -50,14 +50,14 @@ const Featured = async () => {
 
   return (
     <section
-      className="featuredProducts pt-8 bg-slate-100"
+      className="featuredProducts pt-8 bg-slate-100 dark:bg-slate-700"
       id="featuredSection"
     >
       <div className="container mx-auto px-4">
         <div className="featuredProducts">
-          <div className="text-center">
+          <div className="text-center dark:text-white">
             <h3 className="text-4xl font-bold ">Featured Sections</h3>
-            <p className="text-md text-gray-600 mb-6">
+            <p className="text-md text-gray-600 mb-6 dark:text-gray-400">
               Check out the Best and Latest products in the market.
             </p>
           </div>

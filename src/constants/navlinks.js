@@ -14,10 +14,6 @@ const navLinks = [
     label: "Home",
   },
   {
-    route: ABOUT_ROUTE,
-    label: "About",
-  },
-  {
     route: PRODUCTS_ROUTE,
     label: "Products",
   },
@@ -26,16 +22,12 @@ const navLinks = [
     label: "Orders",
   },
   {
-    route: POPULAR_ROUTE,
-    label: "Popular",
-  },
-  {
-    route: CATEGORIES_ROUTE,
-    label: "Categories",
-  },
-  {
     route: TESTIMONIALS_ROUTE,
     label: "Testimonials",
+  },
+  {
+    route: ABOUT_ROUTE,
+    label: "About",
   },
 ];
 export default navLinks;
