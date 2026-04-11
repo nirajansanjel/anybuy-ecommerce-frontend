@@ -26,7 +26,6 @@ const home = () => {
     <Category/>
     {/* contact section */}
     <Contact/>
-    {/* What Our Customer Say */}
     <Testimonials/>
      <Image
         height={1200}
