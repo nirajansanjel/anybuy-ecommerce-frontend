@@ -6,7 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { BsBank2 } from "react-icons/bs";
 
 import Image from "next/image";
-import khaltiLogo from "@/assets/PaymentModes/khaltilogo.png";
+import khaltiLogo from "@/assets/paymentModes/khaltilogo.png";
 
 const Footer = () => {
   return (
