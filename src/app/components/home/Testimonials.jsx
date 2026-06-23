@@ -8,7 +8,7 @@ import { FaQuoteLeft, FaStar } from "react-icons/fa6";
 
 const Testimonials = () => {
   return (
-    <section className="bg-gray-300  pt-8 " id="testimonials">
+    <section className="bg-gray-100  pt-8 " id="testimonials">
       <div className="container mx-auto px-4">
         <div>
           <div className="text-center">
@@ -18,7 +18,7 @@ const Testimonials = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gris-cols-4">
-            <div className="reviews bg-slate-400 m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
               <p className="text-lg">
                 Fantastic experience from start to finish! The website was easy
@@ -43,7 +43,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-slate-400 m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
               <p className="text-lg">
                 Incredible selection, unbeatable prices, and super responsive
@@ -68,7 +68,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-slate-400 m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
               <p className="text-lg">
                 Ordering was a breeze, and I appreciated the real-time tracking
@@ -93,7 +93,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-slate-400 m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
               <p className="text-lg">
                 This company has become my go-to for online shopping. Fast

@@ -83,9 +83,14 @@ const OrdersTable = () => {
           </h5>
         </div>
       </div>
+             {loading ?(
+              <div className="flex flex-col items-center justify-center h-[50svh] p-4">
+                <Loader className="h-16  w-16 fill-secondary" />
+              </div>
+            ) :
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 m-4">
+        <table className="w-full text-sm text-gray-500 dark:text-gray-400 m-4">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {columns.map((column, index) => (
@@ -105,11 +110,6 @@ const OrdersTable = () => {
           </thead>
 
           <tbody>
-            {loading && (
-              <div className="flex justify-center items-center text-center p-4">
-                <Loader className="h-12  w-12 fill-secondary" />
-              </div>
-            )}
             {!loading &&
               orders.map((order, index) => (
                 <tr
@@ -182,7 +182,7 @@ const OrdersTable = () => {
               ))}
           </tbody>
         </table>
-      </div>
+      </div> }
       <nav
         className="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
         aria-label="Table navigation"
@@ -282,7 +282,7 @@ const OrdersTable = () => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> 
     </div>
   );
 };

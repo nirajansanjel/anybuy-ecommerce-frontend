@@ -1,10 +1,7 @@
-import { updateStatus } from "@/api/orders";
 import { updateUserRoles } from "@/api/users";
 import Modal from "@/app/components/Modal";
 import React, { useState } from "react";
-import { BsBox2 } from "react-icons/bs";
 import { FaPencil, FaRegCircleUser } from "react-icons/fa6";
-import { MdEdit } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const Action = ({ id, userRoles=[] }) => {

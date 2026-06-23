@@ -1,10 +1,26 @@
 import "./globals.css";
+import { Playfair_Display, Inter } from "next/font/google";
 import Header from "./components/Header";
 import config from "../config";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import AppProvider from "@/redux/provider";
 import MainLayout from "@/layouts/MainLayout";
+
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata = {
   title: {
@@ -17,16 +33,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${playfairDisplay.variable} ${inter.variable}`}>
+      <body className="font-sans antialiased">
         <AppProvider>
-        <MainLayout>
-          <Header />
-          <main >{children}</main>
-          <Footer />
-          <ToastContainer />
-        </MainLayout>
-      </AppProvider>
+          <MainLayout>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <ToastContainer />
+          </MainLayout>
+        </AppProvider>
       </body>
     </html>
   );

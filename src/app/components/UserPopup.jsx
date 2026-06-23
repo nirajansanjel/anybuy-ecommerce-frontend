@@ -1,4 +1,4 @@
-import { DASHBOARD_ROUTE, PROFILE_ROUTE } from "@/constants/route";
+import { DASHBOARD_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE } from "@/constants/route";
 import { logoutUser } from "@/redux/auth/authSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

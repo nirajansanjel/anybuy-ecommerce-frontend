@@ -1,41 +1,32 @@
-import React from 'react'
-import { FaArrowRotateRight, FaCheck, FaCreditCard, FaTruck } from 'react-icons/fa6'
+import { FaArrowRotateRight, FaCheck, FaCreditCard, FaTruck } from "react-icons/fa6";
+
+const features = [
+  { icon: FaCheck, title: "Quality Products", subtitle: "Only the best, every time" },
+  { icon: FaTruck, title: "Fast Delivery", subtitle: "Your order, right on time" },
+  { icon: FaArrowRotateRight, title: "Easy Returns", subtitle: "30-day hassle-free policy" },
+  { icon: FaCreditCard, title: "Secure Payment", subtitle: "Encrypted checkout, always" },
+];
 
 const Features = () => {
   return (
-    <section className="bg-slate-400 p-12 shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="text-center flex flex-col">
-          <div className="whychooseUs">
-            <p className="text-3xl font-bold ">Why Choose AnyBuy?</p>
-            <p>We serve best shopping experience through our quality products.</p>
-          </div>
-          <div className="features m-6   flex flex-col md:grid grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-8">
-            <div className="flex flex-col justify-center items-center bg-gray-300 rounded-lg mb-4 py-16 px-10">
-                <FaCheck className='text-3xl'/>
-              <h3 className="text-2xl font-semibold mb-2">Quality Products</h3>
-              <p className="text-md">We provide only the best quality products.</p>
+    <section className="bg-primary/5 py-16">
+      <div className="px-6 lg:px-16 max-w-[1200px] mx-auto flex flex-wrap justify-center lg:justify-between gap-12">
+        {features.map(({ icon: Icon, title, subtitle }) => (
+          <div key={title} className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary soft-shadow text-xl">
+              <Icon />
             </div>
-            <div className="flex flex-col justify-center items-center bg-gray-300 rounded-lg mb-4 py-16 px-10">
-                <FaTruck  className="fa-solid fa-truck text-3xl" />
-              <h3 className="text-2xl font-semibold">Fast Delivery</h3>
-              <p>We serve your item in record time.</p>
-            </div>
-            <div className="easyReturn flex flex-col justify-center items-center bg-gray-300 rounded-lg mb-4 py-16 px-10">
-                <FaArrowRotateRight className="fa-solid fa-arrows-rotate text-3xl"/>
-              <h3 className="text-2xl font-semibold">Easy Return</h3>
-              <p>No need to worry if you donot get products as your expectation.</p>
-            </div>
-            <div className="flex flex-col justify-center items-center bg-gray-300 rounded-lg mb-4 py-16 px-10">
-                <FaCreditCard className="fa-regular fa-credit-card text-3xl"/>
-              <h3 className="text-2xl font-semibold">Secure Payment</h3>
-              <p>Highly secured algorithms for payment system.</p>
+            <div>
+              <span className="block font-display text-base font-semibold text-on-surface">
+                {title}
+              </span>
+              <span className="text-xs text-on-surface-variant">{subtitle}</span>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Features
+export default Features;

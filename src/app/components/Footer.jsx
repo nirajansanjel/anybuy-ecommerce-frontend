@@ -1,73 +1,91 @@
-import React from "react";
-import { FaFacebook, FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaYoutube, FaLinkedin, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
-import { FaPhoneAlt } from "react-icons/fa";
 import { BsBank2 } from "react-icons/bs";
-
 import Image from "next/image";
+import Link from "next/link";
+import config from "@/config";
 import khaltiLogo from "@/assets/paymentModes/khaltilogo.png";
+import { PRODUCTS_ROUTE } from "@/constants/route";
+
+const shopLinks = [
+  { label: "Laptop & PC", query: "Laptop" },
+  { label: "Electronics", query: "Electronics" },
+  { label: "SmartPhone", query: "Phone" },
+  { label: "Miscellaneous", query: "" },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-primary">
-      <div className="container mx-auto p-4">
-        <div className="aboutUs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center m-4">
-          <div className="comapnyInfo mb-8">
-            <h3 className="text-3xl font-bold shadow-lg"> Any Buy</h3>
-            <p className="text-lg">
-              {" "}
-              AnyBuy is an online store offering a curated selection of quality
-              products at great prices. We make shopping simple, secure, and
-              fast—delivering what you need, right to your door.
-            </p>
-            <div className="flex gap-2 justify-center items-center">
-              <FaFacebook />
-              <FaInstagram />
-              <FaYoutube />
-              <FaLinkedin />
-            </div>
+    <footer className="bg-surface border-t border-outline-variant">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-6 lg:px-16 py-20 max-w-[1200px] mx-auto">
+        <div className="col-span-2 md:col-span-1">
+          <Link href="/" className="font-display text-2xl font-bold text-primary block mb-6">
+            {config.appName}
+          </Link>
+          <p className="text-on-surface-variant mb-8 max-w-xs">
+          Curating a world where technology and soul coexist in perfect harmony.
+          </p>
+          <div className="flex gap-4 text-on-surface-variant text-lg">
+            <FaFacebook className="hover:text-primary transition-colors cursor-pointer" />
+            <FaInstagram className="hover:text-primary transition-colors cursor-pointer" />
+            <FaYoutube className="hover:text-primary transition-colors cursor-pointer" />
+            <FaLinkedin className="hover:text-primary transition-colors cursor-pointer" />
           </div>
-          <div className="shop h-64">
-            <h2 className="text-3xl font-bold">Shop</h2>
-            <div className="shopList ">
-              <ul className="list-disc flex justify-center flex-col items-center text-xl font-semibold p-4">
-                <li className="p-2">Groceries</li>
-                <li className="p-2">Electronics</li>
-                <li className="p-2">Fashion</li>
-                <li className="p-2">Dresses</li>
-              </ul>
-            </div>
-          </div>
-          <div className="paymentMethods  flex flex-col  items-center ">
-            <h2 className="text-3xl font-semibold pb-4">We Accept</h2>
-            <div className="flex flex-row  mb-4">
-              <div className="khalti mb-4 mr-4">
-                <Image src={khaltiLogo} className="h-10 w-auto  bg-white rounded-2xl " height={50}
-                  width={100}
-                  alt="khalti" />
-              </div>
-              <div className="bankTransfer flex text-3xl w-auto p-1  rounded-2xl">
-                <BsBank2 />
+        </div>
 
-              </div>
-            </div>
-          </div>
-          <div className="contactUs">
-            <h3 className="text-3xl font-semibold mb-3">Contact Us</h3>
-            <div className="flex flex-col justify-center items-center p-1">
-              <MdEmail />
+        <div>
+          <h5 className="text-secondary font-semibold mb-6">Shop</h5>
+          <ul className="space-y-4">
+            {shopLinks.map(({ label, query }) => (
+              <li key={label}>
+                <Link
+                  href={query ? `${PRODUCTS_ROUTE}?category=${query}` : PRODUCTS_ROUTE}
+                  className="text-on-surface-variant hover:text-primary transition-colors"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-              <h2>anydesk@info.com</h2>
-              <CiLocationOn />
-              <h2>
-                3<sup>rd</sup> street Hetauda,Makawanpur
-              </h2>
-              <FaPhoneAlt />
-              <h2>+977-9845677890</h2>
+        <div>
+          <h5 className="text-secondary font-semibold mb-6">We Accept</h5>
+          <div className="flex items-center gap-4">
+            <Image
+              src={khaltiLogo}
+              height={32}
+              width={64}
+              alt="Khalti"
+              className="h-8 w-auto rounded-lg bg-white p-1 soft-shadow"
+            />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-primary soft-shadow">
+              <BsBank2 />
             </div>
           </div>
         </div>
+
+        <div>
+          <h5 className="text-secondary font-semibold mb-6">Contact Us</h5>
+          <ul className="space-y-3 text-on-surface-variant">
+            <li className="flex items-center gap-2">
+              <MdEmail /> anydesk@info.com
+            </li>
+            <li className="flex items-center gap-2">
+              <CiLocationOn /> 3rd street, Hetauda, Makawanpur
+            </li>
+            <li className="flex items-center gap-2">
+              <FaPhoneAlt /> +977-9845677890
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="px-6 lg:px-16 py-8 border-t border-outline-variant/60 text-center">
+        <p className="text-on-surface-variant text-xs tracking-wide">
+          © {new Date().getFullYear()} {config.appName}. All rights reserved.
+        </p>
       </div>
     </footer>
   );
