@@ -8,6 +8,7 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import UserPopup from "./UserPopup";
+import { FaRegUserCircle } from "react-icons/fa";
 
 // const router = useRouter()
 const AuthMenu = () => {
@@ -38,10 +39,10 @@ const AuthMenu = () => {
   return (
     <div className="flex justify-start items-center">
       <Link
-        className="text-xs  bg-blue-600 p-2 rounded-2xl text-white mr-4 hover:bg-red-500  transition"
+        className="text-2xl p-2 transition ml-6"
         href={LOGIN_ROUTE}
       >
-        LOGIN
+        <FaRegUserCircle />
       </Link>
     </div>
   );

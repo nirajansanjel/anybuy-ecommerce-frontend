@@ -35,7 +35,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h5 className="text-secondary font-semibold mb-6">Shop</h5>
+          <h5 className="text-secondary font-semibold mb-6 text-lg">Shop</h5>
           <ul className="space-y-4">
             {shopLinks.map(({ label, query }) => (
               <li key={label}>
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h5 className="text-secondary font-semibold mb-6">We Accept</h5>
+          <h5 className="text-secondary font-semibold mb-6 text-lg">We Accept</h5>
           <div className="flex items-center gap-4">
             <Image
               src={khaltiLogo}
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h5 className="text-secondary font-semibold mb-6">Contact Us</h5>
+          <h5 className="text-secondary font-semibold mb-6 text-lg">Contact Us</h5>
           <ul className="space-y-3 text-on-surface-variant">
             <li className="flex items-center gap-2">
               <MdEmail /> anydesk@info.com

@@ -20,7 +20,7 @@ const Testimonials = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gris-cols-4">
             <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
-              <p className="text-lg">
+              <p className="text-md">
                 Fantastic experience from start to finish! The website was easy
                 to navigate, and the checkout process was smooth. I found
                 exactly what I was looking for, and it arrived right on time.
@@ -45,7 +45,7 @@ const Testimonials = () => {
             </div>
             <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
-              <p className="text-lg">
+              <p className="text-md">
                 Incredible selection, unbeatable prices, and super responsive
                 support. I had a small issue with my order and it was resolved
                 within hours. You can tell they genuinely care about their
@@ -70,7 +70,7 @@ const Testimonials = () => {
             </div>
             <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
-              <p className="text-lg">
+              <p className="text-md">
                 Ordering was a breeze, and I appreciated the real-time tracking
                 updates. Everything arrived right on time and exactly as
                 described. Great pricing, great packaging, and amazing customer
@@ -95,7 +95,7 @@ const Testimonials = () => {
             </div>
             <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
               <FaQuoteLeft />
-              <p className="text-lg">
+              <p className="text-md">
                 This company has become my go-to for online shopping. Fast
                 shipping, high-quality products, and trustworthy service every
                 single time. You can shop with confidence here—they’ve never let

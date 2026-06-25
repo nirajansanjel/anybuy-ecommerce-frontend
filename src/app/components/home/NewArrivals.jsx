@@ -15,7 +15,7 @@ const NewArrivalsCarousel = ({ products = [] }) => {
     scrollRef.current?.scrollBy({ left: distance, behavior: "smooth" });
   };
 
-  if (!products.length) return null;
+  // if (!products.length) return null;
 
   return (
     <section className="py-24" id="featuredSection">

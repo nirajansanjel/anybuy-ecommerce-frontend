@@ -17,10 +17,10 @@ const Features = () => {
               <Icon />
             </div>
             <div>
-              <span className="block font-display text-base font-semibold text-on-surface">
+              <span className="block font-display text-base font-semibold text-on-surface text-xl">
                 {title}
               </span>
-              <span className="text-xs text-on-surface-variant">{subtitle}</span>
+              <span className="text-xs text-on-surface-variant text-lg">{subtitle}</span>
             </div>
           </div>
         ))}

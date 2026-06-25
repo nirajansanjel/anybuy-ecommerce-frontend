@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PRODUCTS_ROUTE } from "@/constants/route";
+import spotlight from "@/assets/spotlight/spotlight.png"
 
 const ProductSpotlight = ({
   eyebrow = "Product Spotlight",
   title = "This Week's Pick",
   description = "A closer look at the product our team can't stop recommending — built for everyday use, priced for everyday people.",
-  image = "https://lh3.googleusercontent.com/aida-public/AB6AXuB3O72nrCEfwsVWc019RLnYRAXvvxROIaZx80gwQm0UiOHQR7kDOjEE78pE0XL-Pt7TdZuzF7qTk4QuE0EhAaUExqzMubpFt6-H9k6OHabDgLpORGaFXmAMKQHNowmN4If07dwZUeF2wb9HNvQtoHFoxp3aWN4SXQ_tHzMU950Cgy2csj0Hp63MK3a-zlHDmTpn-xQL8d0WpA1O_saTBQ6Sj8B6InAXV2JHZx-6vcikxR30gIuaOzHAJ9tK1-O5erddTduvtL7eZaY",
+  image = spotlight,
   primaryHref = PRODUCTS_ROUTE,
   primaryLabel = "Shop Now",
   secondaryHref = "#",

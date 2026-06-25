@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const MainLayout = ({ children }) => {
   const { theme } = useSelector((state) => state.userPreferences);
-  console.log(theme);
 
   return <div className={theme}>
     {children}
