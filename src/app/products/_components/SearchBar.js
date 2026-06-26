@@ -28,13 +28,13 @@ const SearchBar = () => {
 
   return (
     <div className="relative">
-      <div className=" absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+      <div className=" absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none dark:text-white">
         <CiSearch />
       </div>
       <input
         type="text"
         id="search"
-        className="block w-full p-3 ps-9 rounded-lg border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+        className="block w-full p-3 ps-9 rounded-lg border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body dark:text-white"
         placeholder="Search"
         onChange={(e) => setProductName(e.target.value)}
         onKeyDown={searchProduct}

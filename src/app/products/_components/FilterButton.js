@@ -9,7 +9,7 @@ const FilterButton = ({ brands, categories }) => {
     <>
       <button
         onClick={() => setShowFilter(!showFilter)}
-        className="bg-primary text-white px-4 py-1 rounded-md flex items-center gap-1 hover:bg-primary/90"
+        className="bg-primary text-white px-4 py-1 rounded-md flex items-center gap-1 hover:bg-primary/90 dark:text-slate-800"
       >
         <div className="flex ">
           <div className="p-1">

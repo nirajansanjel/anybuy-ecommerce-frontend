@@ -16,7 +16,7 @@ const UserPopup = ({ user, setShowPopup }) => {
   return (
     <div className="absolute -right-2 top-12">
       <div
-        className="fixed bg-black/10 top-0 left-0 h-full w-full z-10"
+        className="fixed bg-black/10 top-0 left-0 h-screen w-screen z-10 dark:bg-white/5"
         onClick={() => setShowPopup(false)}
       ></div>
       <div className="relative bg-slate-100 p-4 rounded-md shadow min-w-64 z-50 dark:bg-surface-container-high">
