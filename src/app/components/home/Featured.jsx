@@ -5,7 +5,6 @@ import NewArrivalsCarousel from "./NewArrivals";
 const Featured = async () => {
   const response = await getProducts({ brands: "Apple" });
   const products = response.data;
-  console.log("The products are:",products)
 
   return <NewArrivalsCarousel products={products} />;
 };

@@ -16,9 +16,9 @@ const Hero = () => {
             The New Standard
           </span>
           <h1 className="font-display text-4xl md:text-5xl lg:text-[72px] font-bold leading-[1.1] tracking-tight text-on-surface mb-8">
-           <span className="lg:block">Precision</span>
-           <span className="lg:block">crafted for</span>
-           <span className="lg:block italic text-primary">the intentional</span>
+           <span className="block">Precision</span>
+           <span className="block">crafted for</span>
+           <span className="block italic text-primary">the intentional</span>
             <span className="italic text-primary">home.</span>
           </h1>
           <p className="text-lg text-on-surface-variant max-w-md mb-10 leading-relaxed">
