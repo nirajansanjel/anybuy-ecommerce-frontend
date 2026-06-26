@@ -13,13 +13,13 @@ const NavMenu = () => {
     <nav className="hidden lg:flex justify-center items-center gap-10">
       {navLinks.map((navLink) => {
         const isActive =
-          navLink.route !== "/" && pathname.startsWith(navLink.route);
-        return (
+    pathname === navLink.route ||
+          (navLink.route !== "/" && pathname.startsWith(navLink.route));        return (
           <Link
             key={navLink.route}
             href={navLink.route}
-            className={`text-md font-medium tracking-wide transition-colors hover:text-primary ${
-              isActive ? "text-primary" : "text-on-surface-variant"
+            className={`text-md font-medium tracking-wide transition-colors hover:text-secondary/90 ${
+              isActive ? "text-secondary" : "text-on-surface-variant"
             }`}
           >
             {navLink.label}
