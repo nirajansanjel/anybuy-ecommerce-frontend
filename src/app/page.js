@@ -13,7 +13,7 @@ import Featured from "./components/home/Featured";
 
 const home = () => {
   return (
-     <main>
+     <main className="dark:bg-surface-container">
       <Hero />
       <Category />
       <Features />

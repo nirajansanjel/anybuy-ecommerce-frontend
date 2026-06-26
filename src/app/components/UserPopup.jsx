@@ -19,7 +19,7 @@ const UserPopup = ({ user, setShowPopup }) => {
         className="fixed bg-black/10 top-0 left-0 h-full w-full z-10"
         onClick={() => setShowPopup(false)}
       ></div>
-      <div className="relative bg-slate-100 p-4 rounded-md shadow min-w-64 z-50 dark:text-black">
+      <div className="relative bg-slate-100 p-4 rounded-md shadow min-w-64 z-50 dark:bg-surface-container-high">
         <div className="flex flex-col p-1">
           <h3 className="font-semibold">{user.name}</h3>
           <h2 className="text-sm">{user.email} </h2>
@@ -27,13 +27,13 @@ const UserPopup = ({ user, setShowPopup }) => {
         <div className="flex flex-col">
           <Link
             href={DASHBOARD_ROUTE}
-            className="bg-zinc-100 shadow  w-full p-1 mt-2 hover:bg-primary hover:text-white rounded"
+            className="bg-zinc-100 dark:bg-surface-container shadow  w-full p-1 mt-2 hover:bg-primary hover:text-white rounded"
           >
             Dashboard
           </Link>
           <Link
             href={PROFILE_ROUTE}
-            className="bg-zinc-100 shadow  w-full p-1 mt-2 hover:bg-primary hover:text-white rounded"
+            className="bg-zinc-100 dark:bg-surface-container shadow  w-full p-1 mt-2 hover:bg-primary hover:text-white rounded"
           >
             Profile
           </Link>

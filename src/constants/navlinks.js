@@ -20,10 +20,6 @@ const navLinks = [
     label: "Orders",
   },
   {
-    route: TESTIMONIALS_ROUTE,
-    label: "Testimonials",
-  },
-  {
     route: ABOUT_ROUTE,
     label: "About",
   },

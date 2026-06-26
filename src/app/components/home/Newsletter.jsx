@@ -1,7 +1,7 @@
 const Newsletter = () => {
   return (
     <section className="px-6 lg:px-16 max-w-[1200px] mx-auto pb-24">
-      <div className="relative bg-primary-container/20 rounded-[40px] p-12 md:p-24 overflow-hidden text-center">
+      <div className="relative bg-primary-container/20 rounded-[40px] p-12 md:p-24 overflow-hidden text-center glass-card">
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl" />
 
@@ -19,7 +19,7 @@ const Newsletter = () => {
             type="email"
             placeholder="Email Address"
             required
-            className="flex-1 bg-white border-none rounded-full px-8 py-4 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary soft-shadow"
+            className="flex-1 bg-white border-none rounded-full px-8 py-4 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary soft-shadow dark:text-black"
           />
           <button
             type="submit"

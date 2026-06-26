@@ -26,7 +26,7 @@ const NewArrivalsCarousel = ({ products = [] }) => {
         <div className="flex items-center gap-4">
           <Link
             href={PRODUCTS_ROUTE}
-            className="hidden sm:inline-block text-sm font-medium text-primary hover:opacity-80 transition-opacity"
+            className="hidden sm:inline-block text-sm font-medium text-primary hover:opacity-80 transition-opacity "
           >
             View all
           </Link>
@@ -35,7 +35,7 @@ const NewArrivalsCarousel = ({ products = [] }) => {
               type="button"
               onClick={() => scrollBy(-400)}
               aria-label="Scroll left"
-              className="p-2 border border-outline rounded-full hover:bg-primary hover:text-on-primary transition-colors"
+              className="p-2 border border-outline rounded-full hover:bg-primary hover:text-on-primary transition-colors dark:bg-white"
             >
               <FaChevronLeft />
             </button>
@@ -43,7 +43,7 @@ const NewArrivalsCarousel = ({ products = [] }) => {
               type="button"
               onClick={() => scrollBy(400)}
               aria-label="Scroll right"
-              className="p-2 border border-outline rounded-full hover:bg-primary hover:text-on-primary transition-colors"
+              className="p-2 border border-outline rounded-full hover:bg-primary hover:text-on-primary transition-colors dark:bg-white"
             >
               <FaChevronRight />
             </button>
@@ -59,7 +59,7 @@ const NewArrivalsCarousel = ({ products = [] }) => {
           <Link
             key={product._id}
             href={`/products/${product._id}`}
-            className="min-w-[260px] md:min-w-[320px] snap-start group"
+            className="min-w-[260px] md:min-w-[320px] snap-start group "
           >
             <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-4 soft-shadow relative bg-surface-container-low">
               <Image

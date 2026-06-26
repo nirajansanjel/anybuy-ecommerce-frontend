@@ -29,7 +29,7 @@ const AuthMenu = () => {
             className="h-8 w-8 rounded-full object-cover"
           />
         ) : (
-          <FaUser className="h-8 w-8 rounded-full p-1 bg-gray-200 text-gray-700" />
+          <FaUser className="h-8 w-8 rounded-full p-1 bg-gray-200 text-gray-700 dark:bg-surface-container-high" />
         )}
        </button>
        {showPopup && <UserPopup user={user} setShowPopup={setShowPopup}/>}
@@ -42,7 +42,7 @@ const AuthMenu = () => {
         className="text-2xl p-2 transition ml-6"
         href={LOGIN_ROUTE}
       >
-        <FaRegUserCircle />
+        <FaRegUserCircle className="dark:bg-surface-container-high" />
       </Link>
     </div>
   );

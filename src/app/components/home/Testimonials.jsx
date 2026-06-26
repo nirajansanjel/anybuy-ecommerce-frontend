@@ -8,17 +8,17 @@ import { FaQuoteLeft, FaStar } from "react-icons/fa6";
 
 const Testimonials = () => {
   return (
-    <section className="bg-gray-100  pt-8 " id="testimonials">
-      <div className="container mx-auto px-4">
+    <section className="bg-gray-100 dark:bg-surface-container-high  pt-8 text-on-surface-variant" id="testimonials">
+      <div className="container mx-auto px-4 ">
         <div>
           <div className="text-center">
-            <h3 className="text-3xl font-semibold">What our Customer Say?</h3>
-            <p className="text-sm text-slate-700">
+            <h3 className="text-3xl font-semibold text-on-surface">What our Customer Say?</h3>
+            <p className="text-sm text-on-surface-variant">
               Hear from Our satisfied Customers what they have for you.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gris-cols-4">
-            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg glass-card">
               <FaQuoteLeft />
               <p className="text-md">
                 Fantastic experience from start to finish! The website was easy
@@ -43,7 +43,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg glass-card">
               <FaQuoteLeft />
               <p className="text-md">
                 Incredible selection, unbeatable prices, and super responsive
@@ -68,7 +68,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg glass-card">
               <FaQuoteLeft />
               <p className="text-md">
                 Ordering was a breeze, and I appreciated the real-time tracking
@@ -93,7 +93,7 @@ const Testimonials = () => {
                 <p className="pt-2 ml-2">Satisfied Customer</p>
               </div>
             </div>
-            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg">
+            <div className="reviews bg-white m-8 p-6 m-3 gap-8 rounded-lg glass-card">
               <FaQuoteLeft />
               <p className="text-md">
                 This company has become my go-to for online shopping. Fast

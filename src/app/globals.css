@@ -152,4 +152,98 @@ body {
   scrollbar-width: none;
 }
 
+/* ── DARK MODE: "Midnight Editorial" ─────────────────────────────────
+   These override the :root tokens when MainLayout applies className="dark".
+   Every token utility (bg-surface, text-on-surface, bg-primary etc.)
+   automatically picks up these values — no dark: prefix needed on those.
+   ──────────────────────────────────────────────────────────────────── */
+.dark {
+  /* surfaces */
+  --background:                   #131313;
+  --foreground:                   #e5e2e1;
+  --surface:                      #131313;
+  --surface-dim:                  #131313;
+  --surface-bright:               #3a3939;
+  --surface-container-lowest:     #0e0e0e;
+  --surface-container-low:        #1c1b1b;
+  --surface-container:            #201f1f;
+  --surface-container-high:       #2a2a2a;
+  --surface-container-highest:    #353534;
+  --surface-variant:              #353534;
+
+  /* ink */
+  --on-surface:                   #e5e2e1;
+  --on-surface-variant:           #c1c6d7;
+  --inverse-surface:              #e5e2e1;
+  --inverse-on-surface:           #313030;
+  --outline:                      #8b90a0;
+  --outline-variant:              #414755;
+
+  /* primary — Electric Blue accent */
+  --primary:                      #adc6ff;
+  --on-primary:                   #002e69;
+  --primary-container:            #4b8eff;
+  --on-primary-container:         #00285c;
+  --inverse-primary:              #005bc1;
+  --primary-fixed:                #d8e2ff;
+  --primary-fixed-dim:            #adc6ff;
+  --on-primary-fixed:             #001a41;
+  --on-primary-fixed-variant:     #004493;
+
+  /* secondary */
+  --secondary:                    #c6c6c8;
+  --on-secondary:                 #2f3132;
+  --secondary-container:          #454749;
+  --on-secondary-container:       #b4b5b7;
+  --secondary-fixed:              #e2e2e4;
+  --secondary-fixed-dim:          #c6c6c8;
+  --on-secondary-fixed:           #1a1c1d;
+  --on-secondary-fixed-variant:   #454749;
+
+  /* tertiary */
+  --tertiary:                     #c6c6cb;
+  --on-tertiary:                  #2f3034;
+  --tertiary-container:           #909095;
+  --on-tertiary-container:        #282a2e;
+  --tertiary-fixed:               #e3e2e7;
+  --tertiary-fixed-dim:           #c6c6cb;
+  --on-tertiary-fixed:            #1a1b1f;
+  --on-tertiary-fixed-variant:    #46464b;
+
+  /* error */
+  --error:                        #ffb4ab;
+  --on-error:                     #690005;
+  --error-container:              #93000a;
+  --on-error-container:           #ffdad6;
+}
+
+/* Global dark body override (belt-and-suspenders for bg/text) */
+.dark body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Glassmorphism card effect — the signature "Midnight Editorial" look.
+   Apply the .glass-card class to any bento/product card in dark mode
+   (see Step 3 below for where to add it) */
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Electric blue focus glow on all inputs in dark mode */
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  box-shadow: 0 0 0 2px rgba(173, 198, 255, 0.25);
+}
+
+/* Glow border on hover for interactive cards in dark mode */
+.dark .glow-hover:hover {
+  border-color: rgba(173, 198, 255, 0.3);
+  box-shadow: 0 0 20px rgba(173, 198, 255, 0.08);
+}
+
 @custom-variant dark (&:is(.dark *));

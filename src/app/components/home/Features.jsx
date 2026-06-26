@@ -9,7 +9,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="bg-primary/5 py-16">
+    <section className="bg-primary/5 py-16 ">
       <div className="px-6 lg:px-16 max-w-[1200px] mx-auto flex flex-wrap justify-center lg:justify-between gap-12">
         {features.map(({ icon: Icon, title, subtitle }) => (
           <div key={title} className="flex items-center gap-4">

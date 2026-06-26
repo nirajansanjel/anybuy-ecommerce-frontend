@@ -58,9 +58,9 @@ const Footer = () => {
               height={32}
               width={64}
               alt="Khalti"
-              className="h-8 w-auto rounded-lg bg-white p-1 soft-shadow"
+              className="h-8 w-auto rounded-lg bg-white p-1 soft-shadow dark:bg-surface-container-high"
             />
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-primary soft-shadow">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white dark:bg-surface-container-high  text-primary soft-shadow">
               <BsBank2 />
             </div>
           </div>

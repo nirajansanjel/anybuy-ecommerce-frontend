@@ -2,7 +2,6 @@ import { PRODUCTS_ROUTE } from "@/constants/route";
 import Image from "next/image";
 import Link from "next/link";
 
-
 const tiles = {
   audio: {
     title: "High-Fidelity Audio",
@@ -28,7 +27,10 @@ const tiles = {
 
 const Category = () => {
   return (
-    <section className="px-6 lg:px-16 max-w-[1200px] mx-auto py-24" id="categories">
+    <section
+      className="px-6 lg:px-16 max-w-[1200px] mx-auto py-24"
+      id="categories"
+    >
       <div className="mb-12">
         <h2 className="font-display text-3xl md:text-4xl font-semibold text-on-surface">
           Curated Categories
@@ -42,7 +44,7 @@ const Category = () => {
         {/* Large tile */}
         <Link
           href={tiles.audio.href}
-          className="md:col-span-8 group relative overflow-hidden rounded-3xl bg-surface-container soft-shadow"
+          className="md:col-span-8 group relative overflow-hidden rounded-3xl bg-surface-container soft-shadow glass-card glow-hover"
         >
           <Image
             src={tiles.audio.image}
@@ -53,7 +55,9 @@ const Category = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
           <div className="absolute bottom-8 left-8 text-white">
-            <h3 className="font-display text-2xl md:text-3xl mb-2">{tiles.audio.title}</h3>
+            <h3 className="font-display text-2xl md:text-3xl mb-2">
+              {tiles.audio.title}
+            </h3>
             <p className="opacity-90">{tiles.audio.subtitle}</p>
           </div>
         </Link>
@@ -61,7 +65,7 @@ const Category = () => {
         {/* Smart Home */}
         <Link
           href={tiles.smartHome.href}
-          className="md:col-span-4 group relative overflow-hidden rounded-3xl bg-surface-container soft-shadow"
+          className="md:col-span-4 group relative overflow-hidden rounded-3xl bg-surface-container soft-shadow glass-card glow-hover"
         >
           <Image
             src={tiles.smartHome.image}
@@ -72,7 +76,9 @@ const Category = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
           <div className="absolute bottom-8 left-8 text-white">
-            <h3 className="font-display text-xl mb-1">{tiles.smartHome.title}</h3>
+            <h3 className="font-display text-xl mb-1">
+              {tiles.smartHome.title}
+            </h3>
             <p className="opacity-90">{tiles.smartHome.subtitle}</p>
           </div>
         </Link>
@@ -91,7 +97,9 @@ const Category = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-40" />
           <div className="absolute bottom-6 left-6 text-white">
-            <h3 className="font-display text-xl mb-1">{tiles.accessories.title}</h3>
+            <h3 className="font-display text-xl mb-1">
+              {tiles.accessories.title}
+            </h3>
           </div>
         </Link>
       </div>

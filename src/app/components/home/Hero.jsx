@@ -7,7 +7,7 @@ import heroImage from "@/assets/hero/heroImage.png";
 const Hero = () => {
   return (
     <section
-      className="relative px-6 lg:px-16 max-w-[1200px] mx-auto pt-16 pb-24 lg:pt-24 lg:pb-32"
+      className="relative px-6 lg:px-16 max-w-[1200px] mx-auto pt-16 pb-24 lg:pt-24 lg:pb-32 dark:bg-surface-container"
       id="home"
     >
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
