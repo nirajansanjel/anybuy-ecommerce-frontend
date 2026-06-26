@@ -1,243 +1,269 @@
 "use client";
 import { useState } from "react";
-import AddToCart from "./AddToCart";
 import Image from "next/image";
-import { FaImage, FaUser } from "react-icons/fa";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cartSlice";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { FaHeart, FaRegHeart, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { FiPackage, FiRefreshCw, FiShield } from "react-icons/fi";
 import MarkdownPreview from "@uiw/react-markdown-preview";
-import { useSelector } from "react-redux";
+import { PRODUCTS_CART_ROUTE } from "@/constants/route";
 
+/* ── Star rating row ─────────────────────────────────────────────── */
+const StarRating = ({ rating = 5, count }) => {
+  const stars = Array.from({ length: 5 }, (_, i) => {
+    if (i + 1 <= Math.floor(rating)) return "full";
+    if (i < rating) return "half";
+    return "empty";
+  });
+  return (
+    <div className="flex items-center gap-1.5">
+      {stars.map((type, i) =>
+        type === "full" ? (
+          <FaStar key={i} className="text-secondary dark:text-primary text-base" />
+        ) : type === "half" ? (
+          <FaStarHalfAlt key={i} className="text-secondary dark:text-primary text-base" />
+        ) : (
+          <FaRegStar key={i} className="text-secondary dark:text-primary text-base" />
+        )
+      )}
+      {count !== undefined && (
+        <span className="ml-1 text-sm text-on-surface-variant">
+          {rating} · {count} reviews
+        </span>
+      )}
+    </div>
+  );
+};
+
+/* ── Trust perks strip ────────────────────────────────────────────── */
+const perks = [
+  { icon: FiPackage,   label: "Free Shipping" },
+  { icon: FiRefreshCw, label: "30-Day Returns" },
+  { icon: FiShield,    label: "2-Year Warranty" },
+];
+
+/* ── Main component ───────────────────────────────────────────────── */
 const Description = ({ product }) => {
-  const [activeImage, setActiveImage] = useState(0);
-  const [wishlist, setWishlist] = useState(false);
-  const thumbnails = product?.imageUrls;
+  const [activeImage, setActiveImage]   = useState(0);
+  const [wishlisted,  setWishlisted]    = useState(false);
+  const thumbnails = product?.imageUrls ?? [];
+  const dispatch   = useDispatch();
+  const router     = useRouter();
+  const { theme }  = useSelector((state) => state.userPreferences);
 
-  const {theme} = useSelector((state)=> state.userPreferences)
+  // Derived price data — only show discount UI if field exists on product
+  const hasDiscount    = Boolean(product?.discount);
+  const originalPrice  = hasDiscount
+    ? Math.round(product.price / (1 - product.discount / 100))
+    : null;
+
+  function handleAddToCart() {
+    const { description, ...productData } = product;
+    dispatch(addToCart(productData));
+    toast.success(`${product.name} added to cart.`, { autoClose: 750 });
+  }
+
+  function handleBuyNow() {
+    const { description, ...productData } = product;
+    dispatch(addToCart(productData));
+    router.push(PRODUCTS_CART_ROUTE);
+  }
 
   return (
-    <div
-      className="min-h-screen font-sans"
-      style={{
-        background: "#f7f8fa",
-        fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif",
-      }}
-    >
-      {/* Inject Google Font */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
-        :root {
-          --primary: #53ace3;
-          --secondary: #e2e444;
-        }
-        .btn-primary {
-          background: var(--primary);
-          color: #fff;
-          transition: all 0.2s ease;
-        }
-        .btn-primary:hover { background: #3a96d0; transform: translateY(-1px); }
-        .btn-secondary {
-          background: var(--secondary);
-          color: #1a1a1a;
-          transition: all 0.2s ease;
-        }
-        .btn-secondary:hover { background: #cfd030; transform: translateY(-1px); }
-        .tag-pill {
-          background: var(--secondary);
-          color: #1a1a1a;
-        }
-        .accent-bar {
-          background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        .thumb-active { border-color: var(--primary); }
-        .size-active {
-          background: var(--primary);
-          color: #fff;
-          border-color: var(--primary);
-        }
-        .tab-active {
-          border-bottom: 3px solid var(--primary);
-          color: var(--primary);
-        }
-        .star-filled { color: var(--secondary); }
-        .badge { background: var(--secondary); }
-        .wishlist-active { color: #e84a5f; }
-      `}</style>
+    <section className="bg-surface min-h-screen">
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
 
-      {/* Navbar strip */}
-      <div className="accent-bar h-1 w-full" />
+        {/* ── Breadcrumb ── */}
+        <nav className="flex items-center gap-2 text-sm text-on-surface-variant mb-10">
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/products" className="hover:text-primary transition-colors">Products</Link>
+          {product?.category && (
+            <>
+              <span>/</span>
+              <span className="text-on-surface">{product.category}</span>
+            </>
+          )}
+        </nav>
 
-      {/* Main Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* LEFT — Images */}
-        <div className="flex gap-4">
-          {/* Thumbnails */}
-          <div className="flex flex-col gap-3">
-            {thumbnails.map((src, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveImage(i)}
-                className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
-                  activeImage === i
-                    ? "thumb-active shadow-md"
-                    : "border-gray-200"
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt=""
-                  height={100}
-                  width={100}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
+        {/* ── Main 2-col grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 
-          {/* Main image */}
-          <div className="relative flex-1 rounded-2xl overflow-hidden bg-white shadow-xl">
-            {/* Badge */}
-            <div className="absolute top-4 left-4 z-10">
-              <span className="badge text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                New Drop
-              </span>
-            </div>
-            <div className="">
+          {/* ── LEFT: Image gallery ── */}
+          <div className="flex gap-4">
+
+            {/* Thumbnail strip */}
+            {thumbnails.length > 1 && (
+              <div className="flex flex-col gap-3 shrink-0">
+                {thumbnails.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImage(i)}
+                    className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                      activeImage === i
+                        ? "border-primary ring-2 ring-primary/30"
+                        : "border-outline-variant hover:border-primary/50"
+                    }`}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${product.name} view ${i + 1}`}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Main image */}
+            <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-surface-container-low soft-shadow dark:glass-card">
               {thumbnails.length > 0 ? (
                 <Image
-                  height={600}
-                  width={800}
-                  className="h-full w-auto object-cover"
                   src={thumbnails[activeImage]}
-                  alt="thumbnail"
+                  alt={product.name}
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 90vw"
+                  className="object-cover transition-opacity duration-300"
+                  priority
                 />
               ) : (
-                <FaImage className="text-gray-500 h-64 w-auto" />
+                <div className="w-full h-full flex items-center justify-center text-on-surface-variant">
+                  No image
+                </div>
+              )}
+
+              {/* Discount badge */}
+              {hasDiscount && (
+                <span className="absolute top-4 left-4 z-10 bg-error text-on-error text-xs font-semibold px-3 py-1 rounded-full">
+                  -{product.discount}% OFF
+                </span>
+              )}
+
+              {/* Wishlist button */}
+              <button
+                onClick={() => setWishlisted(!wishlisted)}
+                aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-surface-container-lowest/80 dark:bg-surface-container/80 backdrop-blur-sm flex items-center justify-center shadow-md transition-transform hover:scale-110"
+              >
+                {wishlisted ? (
+                  <FaHeart className="text-error text-lg" />
+                ) : (
+                  <FaRegHeart className="text-on-surface-variant text-lg" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* ── RIGHT: Product details ── */}
+          <div className="flex flex-col gap-6">
+
+            {/* Category + Title */}
+            <div>
+              {product?.category && (
+                <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+                  {product.category}
+                </span>
+              )}
+              <h1 className="font-display text-4xl md:text-5xl font-bold text-on-surface leading-tight">
+                {product?.name}
+              </h1>
+            </div>
+
+            {/* Rating */}
+            <StarRating
+              rating={product?.rating}
+              count={product?.reviewCount}
+            />
+
+            {/* Price */}
+            <div className="flex items-baseline gap-4">
+              <span className="text-3xl font-bold text-on-surface">
+                Rs. {product?.price?.toLocaleString()}
+              </span>
+              {originalPrice && (
+                <>
+                  <span className="text-lg text-on-surface-variant line-through">
+                    Rs. {originalPrice.toLocaleString()}
+                  </span>
+                  <span className="bg-error/10 text-error text-xs font-semibold px-2.5 py-1 rounded-full">
+                    {product.discount}% OFF
+                  </span>
+                </>
               )}
             </div>
-            {/* Wishlist */}
-            <button
-              onClick={() => setWishlist(!wishlist)}
-              className="absolute top-4 right-4 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md text-xl transition-transform hover:scale-110"
-            >
-              <span className={wishlist ? "wishlist-active" : "text-gray-300"}>
-                ♥
-              </span>
-            </button>
-          </div>
-        </div>
 
-        {/* RIGHT — Details */}
-        <div className="flex flex-col gap-5">
-          {/* Category + Title */}
-          <div>
-            <span
-              className="text-xs font-bold tracking-[0.2em] uppercase"
-              style={{ color: "var(--primary)" }}
-            >
-              {product.category}
-            </span>
-            <h1
-              className="text-4xl font-extrabold text-gray-900 mt-1 leading-tight"
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              {product.name}
-            </h1>
-          </div>
+            <div className="h-px bg-outline-variant/40" />
 
-          {/* Rating */}
-          <div className="flex items-center gap-3">
-            <div className="flex text-lg">
-              {[1, 2, 3, 4, 5].map((s) => (
-                <span key={s} className="star-filled">
-                  ★
+            {/* Brand */}
+            {product?.brand && (
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-on-surface-variant uppercase tracking-widest">
+                  Brand
                 </span>
-              ))}
-            </div>
-            <span className="text-sm text-gray-500 font-medium">
-              4.9 · 128 reviews
-            </span>
-            <span className="tag-pill text-xs font-bold px-2 py-0.5 rounded-full">
-              Top Rated
-            </span>
-          </div>
-
-          {/* Price */}
-          <div className="flex items-baseline gap-3">
-            <span className="text-xl font-extrabold">Rs. {product.price}</span>
-            <span className="text-lg text-gray-400 line-through">
-              {product.price * 1.3}
-            </span>
-            <span className="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">
-              30% OFF
-            </span>
-          </div>
-
-          {/* Divider */}
-          <div className="h-px bg-gray-100" />
-
-          {/* Color selector */}
-          <div className="flex items-center gap-2">
-            <p className="text-sm font-semibold text-gray-700 uppercase tracking-widest">
-              Brand:
-            </p>
-            <div className="text-md p-1 rounded btn-primary font-semibold text-">
-              {product.brand}
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            {/* Add to Cart */}
-            <div className="text-center flex justify-center items-center py-4 px-5 rounded-xl shadow-md text-2xl w-20 btn-primary">
-              <AddToCart product={product} />
-            </div>
-
-            {/* Buy Now */}
-            <button className="btn-secondary font-bold text-sm tracking-widest uppercase py-4 px-5 rounded-xl shadow-md">
-              Buy Now
-            </button>
-          </div>
-
-          {/* Perks */}
-          <div className="grid grid-cols-3 gap-3 mt-1">
-            {[
-              { icon: "🚀", label: "Free Shipping" },
-              { icon: "↩️", label: "30-Day Returns" },
-              { icon: "🛡️", label: "2-Year Warranty" },
-            ].map((p) => (
-              <div
-                key={p.label}
-                className="flex flex-col items-center gap-1 bg-white rounded-xl p-3 text-center shadow-sm border border-gray-100"
-              >
-                <span className="text-xl">{p.icon}</span>
-                <span className="text-xs font-semibold text-gray-600">
-                  {p.label}
+                <span className="bg-primary-fixed text-on-primary-fixed text-sm font-semibold px-4 py-1.5 rounded-full">
+                  {product.brand}
                 </span>
               </div>
-            ))}
+            )}
+
+            {/* Action buttons */}
+            <div className="flex gap-4 flex-wrap">
+              <button
+                onClick={handleAddToCart}
+                className="flex items-center gap-2 px-8 py-3.5 bg-primary text-on-primary rounded-full font-medium hover:opacity-90 hover:scale-[1.02] transition-all shadow-lg shadow-primary/20"
+              >
+                Add to Cart
+              </button>
+              <button
+                onClick={handleBuyNow}
+                className="flex items-center gap-2 px-8 py-3.5 border-2 border-primary text-primary rounded-full font-medium hover:bg-primary/5 transition-all"
+              >
+                Buy Now
+              </button>
+            </div>
+
+            {/* Trust perks */}
+            <div className="grid grid-cols-3 gap-3 mt-2">
+              {perks.map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="flex flex-col items-center gap-2 rounded-xl bg-surface-container-low dark:glass-card p-4 text-center border border-outline-variant/40"
+                >
+                  <Icon className="text-primary text-xl" />
+                  <span className="text-xs font-medium text-on-surface-variant">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* TABS */}
-      <div className="max-w-7xl mx-auto px-6 mt-4">
-        {/* Tab Headers */}
-        <div className="flex gap-8 border-b border-gray-200">
-          <div className="text-gray-400 hover:text-gray-600">Description </div>
-        </div>
-        <div>
-             <MarkdownPreview
-      source={product.description}
-      style={{
-        background: "#0000",
-      }}
-      wrapperElement={{
-        "data-color-mode": theme,
-      }}
-    />
-        </div>
-      </div>
+        {/* ── Description tab ── */}
+        <div className="mt-20">
+          <div className="border-b border-outline-variant mb-10">
+            <span className="inline-block font-display text-lg font-semibold text-primary pb-3 border-b-2 border-primary -mb-px">
+              Description
+            </span>
+          </div>
 
-      {/* Footer strip */}
-      <div className="accent-bar h-1 w-full mt-10" />
-    </div>
+          {/* MarkdownPreview respects the Redux theme toggle via data-color-mode */}
+          <div className="prose max-w-none">
+            <MarkdownPreview
+              source={product?.description}
+              style={{ background: "transparent" }}
+              wrapperElement={{ "data-color-mode": theme }}
+            />
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 };
 
