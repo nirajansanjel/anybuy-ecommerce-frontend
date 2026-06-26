@@ -14,8 +14,14 @@ const Checkout = ({ products, totalPrice }) => {
   const { user } = useSelector((state) => state.auth);
 
   function checkoutOrder() {
-    setLoading(true);
-    createOrder({
+     setLoading(true);
+     if(user==null) {
+ toast.error("Login first to checkout!")
+ setLoading(false)
+ return;
+     }
+
+ createOrder({
       orderItems: products.map((product) => ({
         product: product._id,
         quantity: product.quantity,
