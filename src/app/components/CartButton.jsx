@@ -1,23 +1,24 @@
-"use client"
+"use client";
 import { PRODUCTS_CART_ROUTE } from "@/constants/route";
 import { useRouter } from "next/navigation";
 import { FaCartPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { FiShoppingCart } from "react-icons/fi";
 
 const CartButton = () => {
   const router = useRouter();
-
-const {products} = useSelector((state)=>state.cart)
-
+  const { products } = useSelector((state) => state.cart);
 
   return (
+    // Removed "hidden lg:flex" — visibility is now controlled by the
+    // parent (NavMenu desktop strip is already inside hidden lg:flex).
     <div
       onClick={() => router.push(PRODUCTS_CART_ROUTE)}
-      className="relative hidden lg:flex  hover:text-red-500 text-lg  w-16 justify-end px-1"
+      className="relative flex hover:text-primary cursor-pointer text-lg w-8 justify-center"
     >
-      <span className="absolute -top-2 -right-2 text-white bg-red-600 text-[0.75rem] rounded-full h-4 w-4 p-1 flex items-center">{products.length}</span>
-      <FiShoppingCart />
+      <span className="absolute -top-2 -right-2 text-on-error bg-error text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+        {products.length}
+      </span>
+      <FaCartPlus />
     </div>
   );
 };

@@ -34,7 +34,7 @@ const ProductSpotlight = ({
               {primaryLabel}
             </Link>
             <Link
-              href={secondaryHref}
+              href={primaryHref}
               className="px-8 py-3 border border-primary text-primary rounded-full font-medium hover:bg-primary/5 transition-colors"
             >
               {secondaryLabel}
