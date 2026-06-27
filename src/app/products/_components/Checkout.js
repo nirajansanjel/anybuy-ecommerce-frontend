@@ -1,6 +1,6 @@
 import { createOrder } from "@/api/orders";
 import Loader from "@/app/components/Loader";
-import { PRODUCTS_ORDERS_ROUTE } from "@/constants/route";
+import { LOGIN_ROUTE, PRODUCTS_ORDERS_ROUTE } from "@/constants/route";
 import { clearCart } from "@/redux/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -14,14 +14,15 @@ const Checkout = ({ products, totalPrice }) => {
   const { user } = useSelector((state) => state.auth);
 
   function checkoutOrder() {
-     setLoading(true);
-     if(user==null) {
- toast.error("Login first to checkout!")
- setLoading(false)
- return;
-     }
+    setLoading(true);
+    if (user == null) {
+      toast.error("Login first to checkout!");
+      router.push(LOGIN_ROUTE);
+      setLoading(false);
+      return;
+    }
 
- createOrder({
+    createOrder({
       orderItems: products.map((product) => ({
         product: product._id,
         quantity: product.quantity,
